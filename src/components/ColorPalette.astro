@@ -1,0 +1,70 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+
+const swatches = [
+  { name: 'Coral',  hex: '#e56b5b', role: 'Conformance &mdash; validation libraries' },
+  { name: 'Amber',  hex: '#f7bc68', role: 'Conversion &mdash; format-to-format tools' },
+  { name: 'Forest', hex: '#3f7f55', role: 'Page description &mdash; PS, PDF' },
+  { name: 'Sky',    hex: '#588ac4', role: 'Parsers &mdash; format readers' },
+  { name: 'Plum',   hex: '#ad89b6', role: 'Layout, diagrams, suite meta' },
+  { name: 'Mist',   hex: '#dddddd', role: 'Neutral surfaces & borders' },
+];
+---
+
+<div class:list={['palette', className]}>
+  {swatches.map((sw) => (
+    <article class="swatch-card">
+      <div class="swatch-fill" style={`background:${sw.hex}`} aria-hidden="true"></div>
+      <div class="swatch-meta">
+        <p class="swatch-name">{sw.name}</p>
+        <code class="swatch-hex">{sw.hex}</code>
+        <p class="swatch-role" set:html={sw.role} />
+      </div>
+    </article>
+  ))}
+</div>
+
+<style>
+  .palette {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .swatch-card {
+    background: var(--color-canvas);
+    border: 1px solid var(--color-line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .swatch-fill {
+    height: 90px;
+    width: 100%;
+  }
+  .swatch-meta {
+    padding: 0.85rem 1rem;
+  }
+  .swatch-name {
+    margin: 0;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .swatch-hex {
+    display: inline-block;
+    margin: 0.25rem 0 0.4rem;
+    font-size: 0.78rem;
+    color: var(--color-ink-muted);
+    background: var(--color-canvas-soft);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+  }
+  .swatch-role {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--color-ink-muted);
+    line-height: 1.45;
+  }
+</style>

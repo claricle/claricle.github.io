@@ -1,0 +1,120 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../components/BaseLayout.astro';
+import ProjectsGrid from '../../components/ProjectsGrid.astro';
+import SpectrumStrip from '../../components/SpectrumStrip.astro';
+import { CATEGORY_META, type SpectrumCategory } from '../../content.config';
+
+const projects = await getCollection('projects');
+const categories = Object.keys(CATEGORY_META) as SpectrumCategory[];
+
+const counts = categories.reduce(
+  (acc, c) => {
+    acc[c] = projects.filter((p) => p.data.category === c).length;
+    return acc;
+  },
+  {} as Record<SpectrumCategory, number>
+);
+---
+
+<BaseLayout
+  title="Projects — Claricle"
+  description="The Claricle ecosystem: pure-Ruby libraries for image validation, conversion, page description, parsing, and layout."
+>
+  <header class="page-hero">
+    <div class="page-hero-inner">
+      <p class="eyebrow">The ecosystem</p>
+      <h1>Seventeen libraries, one image suite</h1>
+      <p class="lede">
+        Pick a category to filter. Every project is open source under the
+        <a href="https://github.com/claricle" target="_blank" rel="noopener">claricle</a>
+        org on GitHub.
+      </p>
+      <div class="spectrum-row">
+        <SpectrumStrip />
+      </div>
+    </div>
+  </header>
+
+  <section class="container">
+    <ProjectsGrid projects={projects} filterable={true} />
+
+    <aside class="category-counts" aria-label="Projects per category">
+      {categories.map((c) => (
+        <span class="count-chip">
+          <span class:list={['dot', `dot-${CATEGORY_META[c].token}`]}></span>
+          {CATEGORY_META[c].label}: {counts[c]}
+        </span>
+      ))}
+    </aside>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    background: var(--color-canvas-soft);
+    border-bottom: 1px solid var(--color-line);
+    padding: 4rem 1.5rem 3rem;
+  }
+  .page-hero-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.78rem;
+    color: var(--color-ink-muted);
+    margin: 0 0 0.5rem;
+  }
+  .page-hero h1 {
+    margin: 0 0 0.75rem;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -0.02em;
+  }
+  .lede {
+    color: var(--color-ink-muted);
+    font-size: 1.1rem;
+    line-height: 1.55;
+    margin: 0 auto 1.5rem;
+    max-width: 580px;
+  }
+  .lede a { color: var(--color-ink); text-decoration: underline; text-underline-offset: 2px; }
+  .spectrum-row {
+    max-width: 800px;
+    margin: 1.5rem auto 0;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+  .category-counts {
+    margin-top: 2rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--color-canvas-soft);
+    border-radius: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.25rem;
+    font-size: 0.88rem;
+    color: var(--color-ink-muted);
+  }
+  .count-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .dot-coral { background: var(--color-spectrum-coral); }
+  .dot-amber { background: var(--color-spectrum-amber); }
+  .dot-forest { background: var(--color-spectrum-forest); }
+  .dot-sky { background: var(--color-spectrum-sky); }
+  .dot-plum { background: var(--color-spectrum-plum); }
+</style>

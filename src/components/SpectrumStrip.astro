@@ -1,0 +1,79 @@
+---
+interface Props {
+  variant?: 'full' | 'compact';
+  class?: string;
+}
+const { variant = 'full', class: className = '' } = Astro.props;
+
+const bands = [
+  { token: 'coral',  hex: '#e56b5b', label: 'Conformance' },
+  { token: 'amber',  hex: '#f7bc68', label: 'Conversion' },
+  { token: 'forest', hex: '#3f7f55', label: 'Page description' },
+  { token: 'sky',    hex: '#588ac4', label: 'Parsers' },
+  { token: 'plum',   hex: '#ad89b6', label: 'Layout & diagrams' },
+];
+---
+
+{variant === 'compact' ? (
+  <div class:list={['spectrum-strip', 'compact', className]} aria-hidden="true">
+    {bands.map((band) => (
+      <span class:list={['band', `band-${band.token}`]}></span>
+    ))}
+  </div>
+) : (
+  <ul class:list={['spectrum-strip', className]}>
+    {bands.map((band) => (
+      <li class="strip-item">
+        <span class:list={['swatch', `swatch-${band.token}`]} aria-hidden="true"></span>
+        <span class="strip-label">{band.label}</span>
+      </li>
+    ))}
+  </ul>
+)}
+
+<style>
+  .spectrum-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  .strip-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.9rem;
+    color: var(--color-ink-muted);
+  }
+  .swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .swatch-coral  { background: var(--color-spectrum-coral); }
+  .swatch-amber  { background: var(--color-spectrum-amber); }
+  .swatch-forest { background: var(--color-spectrum-forest); }
+  .swatch-sky    { background: var(--color-spectrum-sky); }
+  .swatch-plum   { background: var(--color-spectrum-plum); }
+
+  .spectrum-strip.compact {
+    display: flex;
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .spectrum-strip.compact .band {
+    flex: 1;
+    display: block;
+  }
+  .band-coral  { background: var(--color-spectrum-coral); }
+  .band-amber  { background: var(--color-spectrum-amber); }
+  .band-forest { background: var(--color-spectrum-forest); }
+  .band-sky    { background: var(--color-spectrum-sky); }
+  .band-plum   { background: var(--color-spectrum-plum); }
+</style>

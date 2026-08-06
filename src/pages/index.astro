@@ -1,0 +1,160 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../components/BaseLayout.astro';
+import RainbowHero from '../components/RainbowHero.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import ProjectsGrid from '../components/ProjectsGrid.astro';
+
+const all = await getCollection('projects');
+const featured = all.filter((p) => p.data.featured);
+---
+
+<BaseLayout>
+  <RainbowHero />
+
+  <section class="container">
+    <FeatureGrid />
+  </section>
+
+  <section class="container">
+    <header class="section-head">
+      <p class="eyebrow">The ecosystem</p>
+      <h2>Batteries-included image tooling</h2>
+      <p class="lede">
+        Each library does one thing well. Together they cover the publication
+        image pipeline end to end.
+      </p>
+    </header>
+    <ProjectsGrid projects={featured} />
+    <p class="more-link">
+      <a href="/projects/">See all {all.length} projects &rarr;</a>
+    </p>
+  </section>
+
+  <section class="container cta-band">
+    <div class="cta-rainbow" aria-hidden="true"></div>
+    <div class="cta-content">
+      <h2>One gem, every image task</h2>
+      <p>
+        <code>gem install claricle</code> pulls in the umbrella CLI. Use it to
+        validate, convert, and inspect images from a single command.
+      </p>
+      <div class="cta-actions">
+        <a class="cta-primary" href="/about/">Read the brand story</a>
+        <a class="cta-secondary" href="https://github.com/claricle/claricle" target="_blank" rel="noopener">Open the repo</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  .section-head {
+    text-align: center;
+    margin: 3rem 0 1rem;
+  }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.78rem;
+    color: var(--color-ink-muted);
+    margin: 0 0 0.5rem;
+  }
+  .section-head h2 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    letter-spacing: -0.015em;
+  }
+  .lede {
+    color: var(--color-ink-muted);
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+  .more-link {
+    text-align: center;
+    margin: 1.5rem 0 0;
+  }
+  .more-link a {
+    color: var(--color-ink);
+    font-weight: 500;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    transition: background 0.15s ease;
+  }
+  .more-link a:hover { background: var(--color-canvas-soft); }
+
+  .cta-band {
+    margin-top: 5rem;
+    padding: 4rem 1.5rem;
+    border-radius: 20px;
+    background: var(--color-canvas-soft);
+    border: 1px solid var(--color-line);
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-rainbow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--color-spectrum-coral) 18%, transparent),
+      color-mix(in srgb, var(--color-spectrum-amber) 18%, transparent),
+      color-mix(in srgb, var(--color-spectrum-forest) 18%, transparent),
+      color-mix(in srgb, var(--color-spectrum-sky) 18%, transparent),
+      color-mix(in srgb, var(--color-spectrum-plum) 18%, transparent)
+    );
+    z-index: 0;
+  }
+  .cta-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .cta-content h2 {
+    margin: 0 0 0.75rem;
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    letter-spacing: -0.015em;
+  }
+  .cta-content p {
+    margin: 0 0 1.5rem;
+    color: var(--color-ink-muted);
+    line-height: 1.55;
+  }
+  .cta-content code {
+    background: var(--color-canvas);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    border: 1px solid var(--color-line);
+    font-size: 0.92em;
+  }
+  .cta-actions {
+    display: inline-flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .cta-primary, .cta-secondary {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .cta-primary {
+    background: var(--color-ink);
+    color: var(--color-canvas);
+  }
+  .cta-secondary {
+    background: transparent;
+    color: var(--color-ink);
+    border: 1px solid var(--color-line);
+  }
+</style>

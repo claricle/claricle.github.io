@@ -1,0 +1,13 @@
+# Blog content directory
+
+Drop markdown files here to publish a post. Schema in `src/content.config.ts`:
+
+```yaml
+---
+title: Post title
+description: One-line summary for cards and OG tags
+pubDate: 2026-08-06
+author: Your name
+tags: [release, tutorial]
+---
+```

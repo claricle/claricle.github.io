@@ -1,0 +1,72 @@
+---
+import '../styles/brand.css';
+import Nav from './Nav.astro';
+import Footer from './Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = 'Claricle — Essential image suite for publication',
+  description = 'A family of pure-Ruby libraries for image format validation, conversion, compression, and vector graphics processing. An open source project of Ribose.',
+  ogImage = '/logo-claricle.png',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(ogImage, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#e56b5b" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Claricle" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <style is:global>
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        z-index: 100;
+        padding: 0.5rem 1rem;
+        background: var(--color-ink);
+        color: var(--color-canvas);
+        border-radius: 0 0 6px 0;
+      }
+      .skip-link:focus {
+        left: 0;
+      }
+    </style>
+  </body>
+</html>

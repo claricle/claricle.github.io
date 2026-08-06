@@ -1,0 +1,319 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../components/BaseLayout.astro';
+import LogoShowcase from '../components/LogoShowcase.astro';
+import ColorPalette from '../components/ColorPalette.astro';
+import { CATEGORY_META, type SpectrumCategory } from '../content.config';
+
+const projects = await getCollection('projects');
+const categories = Object.keys(CATEGORY_META) as SpectrumCategory[];
+const byCategory = (c: SpectrumCategory) =>
+  projects
+    .filter((p) => p.data.category === c)
+    .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="About — Claricle"
+  description="Etymology, logo, and color story behind Claricle — Ribose's essential image suite for publication."
+>
+  <article class="page">
+    <header class="page-head">
+      <p class="eyebrow">About</p>
+      <h1>Clarity, by the particle.</h1>
+      <p class="lede">
+        Claricle is an open-source image suite for publication pipelines. The
+        name, the logo, and the color story all point at the same idea: when
+        every pixel is checked and every format is honoured, clarity is what
+        comes out the other side.
+      </p>
+    </header>
+
+    <section class="section">
+      <h2>Etymology &amp; symbolism</h2>
+      <p>
+        <strong>Clari-</strong> from the Latin <em>cl&amacr;rus</em> &mdash;
+        clear, bright, famous. The same root that gives us <em>clarity</em>
+        and <em>clarify</em>.
+      </p>
+      <p>
+        <strong>-cle</strong> from the Latin <em>cle</em> (drawn from
+        <em>particula</em>) &mdash; a small particle. The same suffix as
+        <em>particle</em>, <em>fascicle</em>, <em>article</em>.
+      </p>
+      <p>
+        Together: <em>clear particle</em> or <em>bright essence</em>. A
+        perfect metaphor for what the suite does &mdash; validate every
+        particle of an image so its essence passes through unchanged.
+      </p>
+      <table class="roots">
+        <thead><tr><th>Part</th><th>Root</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><code>clari-</code></td><td>Latin <em>cl&amacr;rus</em></td><td>clear, bright, famous</td></tr>
+          <tr><td><code>-cle</code></td><td>Latin <em>cle</em> (from <em>particula</em>)</td><td>small particle</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>The logo</h2>
+      <p>
+        Five translucent circles, arranged as a flower, in the spectrum that
+        runs upward &mdash; coral, amber, forest, sky, plum. Where they
+        overlap, new colors emerge; the negative space at the centre is the
+        <em>cl&amacr;rus</em>, the clear bright point that all Claricle tools
+        aim to preserve.
+      </p>
+      <LogoShowcase />
+      <p class="caption">
+        The logo reads as a rainbow rising &mdash; the warmer colors at the
+        base (conformance, conversion: the work), the cooler colors at the
+        crown (parsers, layout: the structure). The eye climbs with it.
+      </p>
+      <p class="source-note">
+        The canonical source is <code>logo-claricle.png</code>. The SVG variant
+        on this site is derived from it for crisp scaling.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>The colors</h2>
+      <p>
+        Each spectrum color corresponds to a category in the ecosystem. The
+        mapping is intentional: when you see coral on a project card, you know
+        it does conformance work before you read the description.
+      </p>
+      <ColorPalette />
+    </section>
+
+    <section class="section">
+      <h2>Origin story</h2>
+      <p>
+        Claricle grew out of the publication pipelines that
+        <a href="https://www.ribose.com" target="_blank" rel="noopener">Ribose</a>
+        maintains for standards-development organisations. Those pipelines
+        ingest diagrams in EMF from Windows authors, EPS from print-era
+        designers, SVG from web tools, and PNG from everywhere &mdash; and they
+        need to validate, convert, and re-emit each one without losing a pixel.
+      </p>
+      <p>
+        Existing tools either did one format well (and demanded a JVM, an
+        Inkscape install, or a Ghostscript binary) or did many formats badly.
+        Claricle is the answer: pure-Ruby libraries that do each format
+        correctly, composable into any pipeline.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Mission</h2>
+      <p>
+        Make image processing in publication pipelines
+        <strong>correct, composable, and dependency-free</strong>. Every
+        Claricle library is pure Ruby (with a small amount of C where the
+        performance demands it), BSD-2-Clause licensed, and tested against the
+        formats' canonical conformance suites.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>The ecosystem</h2>
+      <p>
+        {projects.length} projects across {categories.length} categories.
+        Every one lives at
+        <a href="https://github.com/claricle" target="_blank" rel="noopener">github.com/claricle</a>.
+      </p>
+
+      {categories.map((cat) => (
+        <div class="ecosystem-block">
+          <h3>
+            <span class:list={['dot', `dot-${CATEGORY_META[cat].token}`]}></span>
+            {CATEGORY_META[cat].label}
+          </h3>
+          <p class="ecosystem-desc">{CATEGORY_META[cat].description}</p>
+          <ul class="ecosystem-list">
+            {byCategory(cat).map((p) => (
+              <li>
+                <a href={p.data.github} target="_blank" rel="noopener">{p.data.title}</a>
+                <span class="muted"> &mdash; {p.data.tagline}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+
+    <section class="section">
+      <h2>Open source</h2>
+      <p>
+        Every Claricle library is BSD-2-Clause licensed and maintained by
+        Ribose and the broader community. Contributions are welcome &mdash;
+        pick a project, read its CONTRIBUTING notes, and open a PR.
+      </p>
+      <ul class="links">
+        <li><a href="https://github.com/claricle" target="_blank" rel="noopener">GitHub organization</a></li>
+        <li><a href="https://github.com/claricle/claricle/blob/main/CODE_OF_CONDUCT.md" target="_blank" rel="noopener">Code of conduct</a></li>
+        <li><a href="/projects/">Browse all projects</a></li>
+      </ul>
+    </section>
+
+    <section class="section get-started">
+      <h2>Get started</h2>
+      <p>Pull the umbrella CLI and try it on a single file:</p>
+      <pre><code>gem install claricle
+claricle validate ./diagram.svg
+claricle convert ./diagram.emf ./diagram.svg</code></pre>
+      <p>
+        Or pick the library that does the job you need from
+        <a href="/projects/">the ecosystem page</a>.
+      </p>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+  }
+  .page-head {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.78rem;
+    color: var(--color-ink-muted);
+    margin: 0 0 0.5rem;
+  }
+  .page-head h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    margin: 0 0 0.75rem;
+    letter-spacing: -0.02em;
+  }
+  .lede {
+    color: var(--color-ink-muted);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0 auto;
+    max-width: 620px;
+  }
+  .section {
+    margin: 3rem 0;
+  }
+  .section h2 {
+    font-size: 1.6rem;
+    margin: 0 0 1rem;
+    letter-spacing: -0.01em;
+  }
+  .section h3 {
+    font-size: 1.15rem;
+    margin: 0 0 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section p {
+    line-height: 1.65;
+    color: var(--color-ink);
+    margin: 0 0 1rem;
+  }
+  .section p a { color: var(--color-ink); text-decoration: underline; text-underline-offset: 2px; }
+  .caption {
+    font-size: 0.92rem !important;
+    color: var(--color-ink-muted) !important;
+    margin-top: 1rem !important;
+    font-style: italic;
+  }
+  .source-note {
+    font-size: 0.85rem !important;
+    color: var(--color-ink-muted) !important;
+  }
+  .source-note code, .section code {
+    background: var(--color-canvas-soft);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.92em;
+  }
+  .roots {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.92rem;
+  }
+  .roots th, .roots td {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .roots th {
+    background: var(--color-canvas-soft);
+    font-weight: 600;
+    color: var(--color-ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.78rem;
+  }
+
+  .ecosystem-block {
+    margin: 1.5rem 0;
+    padding: 1.25rem 1.5rem;
+    background: var(--color-canvas-soft);
+    border-radius: 12px;
+  }
+  .ecosystem-desc {
+    color: var(--color-ink-muted) !important;
+    font-size: 0.92rem !important;
+    margin: 0 0 0.5rem !important;
+  }
+  .ecosystem-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+  }
+  .ecosystem-list li {
+    padding: 0.25rem 0;
+    font-size: 0.92rem;
+  }
+  .ecosystem-list a { color: var(--color-ink); text-decoration: underline; text-underline-offset: 2px; }
+  .ecosystem-list .muted { color: var(--color-ink-muted); }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .dot-coral { background: var(--color-spectrum-coral); }
+  .dot-amber { background: var(--color-spectrum-amber); }
+  .dot-forest { background: var(--color-spectrum-forest); }
+  .dot-sky { background: var(--color-spectrum-sky); }
+  .dot-plum { background: var(--color-spectrum-plum); }
+
+  .links {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+  }
+  .links li {
+    padding: 0.3rem 0;
+  }
+  .links a {
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .get-started pre {
+    background: var(--color-canvas-soft);
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    overflow-x: auto;
+    border: 1px solid var(--color-line);
+  }
+  .get-started code {
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+  }
+</style>

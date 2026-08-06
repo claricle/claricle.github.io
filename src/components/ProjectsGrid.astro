@@ -1,0 +1,56 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ProjectCard from './ProjectCard.astro';
+import ProjectFilter from './ProjectFilter.vue';
+
+interface Props {
+  projects: CollectionEntry<'projects'>[];
+  filterable?: boolean;
+}
+const { projects, filterable = false } = Astro.props;
+
+const sorted = [...projects].sort((a, b) => a.data.order - b.data.order);
+const categories = [...new Set(sorted.map((p) => p.data.category))];
+const items = sorted.map((p) => ({
+  id: p.id,
+  name: p.data.name,
+  title: p.data.title,
+  tagline: p.data.tagline,
+  description: p.data.description,
+  category: p.data.category,
+  github: p.data.github,
+  docs: p.data.docs,
+  featured: p.data.featured,
+  language: p.data.language,
+  order: p.data.order,
+}));
+---
+
+{filterable ? (
+  <div
+    class="projects-grid-filterable"
+    data-projects={JSON.stringify(items)}
+    data-categories={JSON.stringify(categories)}
+  >
+    <ProjectFilter client:load categories={categories} />
+    <div class="projects-grid" data-projects-grid></div>
+    <noscript>
+      <div class="projects-grid">
+        {sorted.map((p) => <ProjectCard project={p.data} />)}
+      </div>
+    </noscript>
+  </div>
+) : (
+  <div class="projects-grid">
+    {sorted.map((p) => <ProjectCard project={p.data} />)}
+  </div>
+)}
+
+<style>
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+    margin: 2rem 0;
+  }
+</style>

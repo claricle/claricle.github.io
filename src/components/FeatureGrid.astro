@@ -1,0 +1,103 @@
+---
+interface Feature {
+  title: string;
+  body: string;
+  icon: string;
+  token: 'coral' | 'amber' | 'forest' | 'sky' | 'plum';
+}
+
+const features: Feature[] = [
+  { title: 'Validate', body: 'Check PNG, SVG, and PDF files against the standards. Catch corruption before it reaches your pipeline.', icon: 'M5 13l4 4L19 7', token: 'coral' },
+  { title: 'Convert', body: 'Move between EPS, PS, EMF, and SVG with no external binaries. Pure Ruby, deterministic output.', icon: 'M4 12h16M14 6l6 6-6 6', token: 'amber' },
+  { title: 'Compose', body: 'Lay out diagrams, render PlantUML and Mermaid, and emit SVG that any document pipeline accepts.', icon: 'M3 7h18M3 12h18M3 17h18', token: 'forest' },
+  { title: 'Render', body: 'Parse PostScript and PDF at the object level. Read, transform, and emit without re-rendering.', icon: 'M12 4l8 4-8 4-8-4 8-4zM4 12l8 4 8-4M4 16l8 4 8-4', token: 'sky' },
+];
+---
+
+<section class="features">
+  <header class="features-head">
+    <h2>One image suite, every publication task</h2>
+    <p>Four jobs, one ecosystem. Pick what you need, or pull in <code>claricle</code> for the umbrella CLI.</p>
+  </header>
+  <div class="features-grid">
+    {features.map((feature) => (
+      <article class:list={['feature-card', `token-${feature.token}`]}>
+        <div class:list={['feature-icon', `icon-${feature.token}`]} aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d={feature.icon} />
+          </svg>
+        </div>
+        <h3>{feature.title}</h3>
+        <p>{feature.body}</p>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .features {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+  }
+  .features-head {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .features-head h2 {
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.015em;
+  }
+  .features-head p {
+    color: var(--color-ink-muted);
+    margin: 0;
+    font-size: 1.05rem;
+  }
+  .features-head code {
+    background: var(--color-canvas-soft);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.92em;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+  }
+  .feature-card {
+    background: var(--color-canvas);
+    border: 1px solid var(--color-line);
+    border-radius: 14px;
+    padding: 1.5rem;
+    transition: transform 0.18s ease, border-color 0.18s ease;
+  }
+  .feature-card:hover { transform: translateY(-2px); }
+  .feature-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-bottom: 0.85rem;
+  }
+  .feature-icon svg { width: 20px; height: 20px; }
+  .icon-coral { background: var(--color-spectrum-coral); }
+  .icon-amber { background: var(--color-spectrum-amber); color: #2a2a2a; }
+  .icon-forest { background: var(--color-spectrum-forest); }
+  .icon-sky { background: var(--color-spectrum-sky); }
+
+  .feature-card h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+  }
+  .feature-card p {
+    margin: 0;
+    color: var(--color-ink-muted);
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+</style>

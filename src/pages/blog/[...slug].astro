@@ -1,0 +1,113 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../components/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const formattedDate = post.data.pubDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout
+  title={`${post.data.title} — Claricle Blog`}
+  description={post.data.description}
+>
+  <article class="post">
+    <a href="/blog/" class="back">&larr; All posts</a>
+    <header class="head">
+      <time datetime={post.data.pubDate.toISOString()}>{formattedDate}</time>
+      <h1>{post.data.title}</h1>
+      <p class="desc">{post.data.description}</p>
+      <p class="byline">By {post.data.author}</p>
+      {post.data.tags.length > 0 && (
+        <ul class="tags">
+          {post.data.tags.map((t) => <li>#{t}</li>)}
+        </ul>
+      )}
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .post {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+  .back {
+    display: inline-block;
+    font-size: 0.88rem;
+    color: var(--color-ink-muted);
+    margin-bottom: 1.5rem;
+  }
+  .back:hover { color: var(--color-ink); }
+  .head time {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-ink-muted);
+  }
+  .head h1 {
+    margin: 0.4rem 0 0.5rem;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    letter-spacing: -0.02em;
+  }
+  .desc {
+    color: var(--color-ink-muted);
+    font-size: 1.1rem;
+    margin: 0 0 0.5rem;
+  }
+  .byline {
+    color: var(--color-ink-muted);
+    font-size: 0.92rem;
+    margin: 0;
+  }
+  .tags {
+    list-style: none;
+    padding: 0;
+    margin: 0.75rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .tags li {
+    font-size: 0.78rem;
+    color: var(--color-ink-muted);
+    background: var(--color-canvas-soft);
+    padding: 0.15rem 0.55rem;
+    border-radius: 4px;
+  }
+  .prose {
+    margin-top: 2.5rem;
+    line-height: 1.7;
+  }
+  .prose :global(h2) {
+    margin-top: 2.5rem;
+  }
+  .prose :global(pre) {
+    background: var(--color-canvas-soft);
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    overflow-x: auto;
+    border: 1px solid var(--color-line);
+  }
+  .prose :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+  }
+</style>

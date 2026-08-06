@@ -1,0 +1,63 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<div class:list={['logo-showcase', className]}>
+  <figure class="logo-card light-card">
+    <div class="card-head">Light mode</div>
+    <div class="logo-stage light-stage">
+      <img src="/logo-claricle.svg" alt="Claricle logo, light mode" />
+    </div>
+  </figure>
+  <figure class="logo-card dark-card">
+    <div class="card-head">Dark mode</div>
+    <div class="logo-stage dark-stage">
+      <img src="/logo-claricle.svg" alt="Claricle logo, dark mode" />
+    </div>
+  </figure>
+</div>
+
+<style>
+  .logo-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+    margin: 1.5rem 0;
+  }
+  .logo-card {
+    margin: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+  }
+  .card-head {
+    padding: 0.6rem 1rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    color: var(--color-ink-muted);
+    border-bottom: 1px solid var(--color-line);
+    background: var(--color-canvas-soft);
+  }
+  .logo-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1.5rem;
+    min-height: 200px;
+  }
+  .logo-stage img {
+    width: 140px;
+    height: 140px;
+  }
+  .light-stage {
+    background: linear-gradient(135deg, #fdfdfd 0%, #f0f0f1 100%);
+  }
+  .dark-stage {
+    background: linear-gradient(135deg, #1a1a20 0%, #0f0f12 100%);
+  }
+</style>
