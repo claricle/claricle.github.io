@@ -1,0 +1,38 @@
+{
+  "name": "claricle.github.io",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Public site for Claricle — an open-source image suite for publication, by Ribose.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@astrojs/vue": "^7.0.2",
+    "@fontsource-variable/inter": "^5.2.8",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.2.0",
+    "tailwindcss": "^4.3.3",
+    "vue": "^3.5.41"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@eslint/js": "^9.34.0",
+    "@types/node": "^22.10.0",
+    "eslint": "^9.34.0",
+    "eslint-plugin-astro": "^1.3.1",
+    "gray-matter": "^4.0.3",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.40.0",
+    "vitest": "^4.1.10"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
