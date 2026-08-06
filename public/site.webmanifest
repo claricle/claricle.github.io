@@ -1,0 +1,14 @@
+{
+  "name": "Claricle",
+  "short_name": "Claricle",
+  "description": "Essential image suite for publication. An open source project of Ribose.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fdfdfd",
+  "theme_color": "#e56b5b",
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "/favicon-96x96.png", "type": "image/png", "sizes": "96x96" },
+    { "src": "/apple-touch-icon.png", "type": "image/png", "sizes": "180x180" }
+  ]
+}
