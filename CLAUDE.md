@@ -78,7 +78,11 @@ This repo keeps only the subset the site actually serves from `public/`:
 - `public/logo-claricle_icon-light.svg` &mdash; light-mode logo (saturated colors)
 - `public/logo-claricle_icon-dark.svg` &mdash; dark-mode logo (luminous colors)
 - `public/logo-claricle_icon-light.png` &mdash; 834×834 PNG used for Open Graph previews (rasterized from the SVG)
-- `public/favicon.svg`, `favicon-96x96.png`, `favicon.ico`, `apple-touch-icon.png` &mdash; favicon set
+- `public/favicon-light.svg` + `favicon-dark.svg` &mdash; theme-aware favicons (JS picks based on resolved theme)
+- `public/favicon-light-96x96.png` + `favicon-dark-96x96.png` &mdash; PNG fallback for SVG-incapable browsers
+- `public/favicon-light.ico` + `favicon-dark.ico` &mdash; multi-res ICO for legacy contexts
+- `public/apple-touch-icon-light.png` + `apple-touch-icon-dark.png` &mdash; iOS home-screen icons (180px)
+- `public/web-app-manifest-light-{192x192,512x512}.png` + `dark` &mdash; PWA manifest icons
 - `public/site.webmanifest` &mdash; PWA manifest
 
 To change brand assets: edit the PDF in `claricle/branding`, regenerate the SVG variants, rasterize the PNGs, then copy only what the site needs into `public/`. Never invent ad-hoc variants here.

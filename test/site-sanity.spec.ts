@@ -46,6 +46,32 @@ describe('site sanity', () => {
     expect(width).toBe(834);
   });
 
+  it('ships paired light + dark favicon variants for every format', () => {
+    const variants = [
+      'favicon-light.svg', 'favicon-dark.svg',
+      'favicon-light-96x96.png', 'favicon-dark-96x96.png',
+      'favicon-light.ico', 'favicon-dark.ico',
+      'apple-touch-icon-light.png', 'apple-touch-icon-dark.png',
+      'web-app-manifest-light-192x192.png', 'web-app-manifest-dark-192x192.png',
+      'web-app-manifest-light-512x512.png', 'web-app-manifest-dark-512x512.png',
+    ];
+    for (const file of variants) {
+      const path = resolve(root, 'public', file);
+      const buffer = readFileSync(path);
+      expect(buffer.length, `expected ${file} to be non-empty`).toBeGreaterThan(0);
+    }
+  });
+
+  it('BaseLayout applies favicons based on resolved theme', () => {
+    const layout = readFileSync(
+      resolve(root, 'src', 'components', 'BaseLayout.astro'),
+      'utf-8'
+    );
+    expect(layout).toMatch(/data-favicon=["'](?:svg|png|ico|apple)["']/);
+    expect(layout).toMatch(/applyFavicons\(resolveTheme\(\)\)/);
+    expect(layout).toMatch(/window\.__applyClaricleFavicons/);
+  });
+
   it('manifest references existing icons', () => {
     const manifest = JSON.parse(
       readFileSync(resolve(root, 'public', 'site.webmanifest'), 'utf-8')
