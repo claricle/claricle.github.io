@@ -43,7 +43,7 @@ To add a project: drop a markdown file in `src/content/projects/`, fill the fron
 
 ### Brand tokens live in `src/styles/brand.css`
 
-Tailwind 4 `@theme` block defines the spectrum palette as both CSS variables (`--color-spectrum-*`) and utility classes (`bg-spectrum-coral`, etc.). The palette is extracted from `logo-claricle.png` (the canonical logo source) and must stay in sync with it. Do not invent new brand colors — extend the neutral scale if you need grays.
+Tailwind 4 `@theme` block defines the spectrum palette as both CSS variables (`--color-spectrum-*`) and utility classes (`bg-spectrum-coral`, etc.). The palette is sourced from the canonical logo in [`claricle/branding`](https://github.com/claricle/branding). Do not invent new brand colors — extend the neutral scale if you need grays.
 
 The spectrum, in rainbow-upwards order:
 
@@ -75,7 +75,7 @@ The canonical brand assets (PDF source, all PNG/SVG variants, the full favicon s
 - `public/favicon.svg`, `favicon-96x96.png`, `favicon.ico`, `apple-touch-icon.png` &mdash; favicon set
 - `public/site.webmanifest` &mdash; PWA manifest
 
-The root `logo-claricle.png` (200×200, original designer source) is preserved untouched. To add or change brand assets, edit the branding repo first, then copy only what the site needs into `public/`. Never invent ad-hoc variants here.
+The root used to hold a 200×200 `logo-claricle.png`; that canonical source now lives in [`claricle/branding`](https://github.com/claricle/branding) and is no longer duplicated here. To add or change brand assets, edit the branding repo first, then copy only what the site needs into `public/`. Never invent ad-hoc variants here.
 
 `src/components/Logo.astro` is the **only** place that decides which logo variant to show. It takes `variant="auto"` (default) and swaps between light/dark via CSS based on `prefers-color-scheme` and `[data-theme]`. Use `<Logo size={N} />` everywhere &mdash; never hardcode `<img src="/logo-...">` in components.
 
@@ -107,7 +107,7 @@ When adding a new invariant, add a new test file. Do not pile more asserts into 
 
 Per the project owner's global rules (see `~/.claude/CLAUDE.md`):
 
-- `logo-claricle.png` and any other binary brand asset — **source of truth**, never delete even if "unused by code". The SVG variant in `public/` is *derived* from it, not a replacement.
+- All brand assets (PDF source, all PNG/SVG variants, full favicon set) — canonical home is [`claricle/branding`](https://github.com/claricle/branding). This repo keeps only the subset the site serves.
 - Anything in `TODO.complete/` once marked done — historical record.
 - `.gitignore`, `.github/workflows/*` — modify only with a clear reason.
 
