@@ -16,7 +16,6 @@ const { class: className = '' } = Astro.props;
     <div class="hero-mark">
       <Logo size={96} />
     </div>
-    <p class="hero-eyebrow">An open source project of Ribose</p>
     <h1 class="hero-title">
       Colors give us <span class="rainbow-text">clarity</span>
     </h1>
@@ -82,13 +81,6 @@ const { class: className = '' } = Astro.props;
     filter: drop-shadow(0 8px 24px rgba(229, 107, 91, 0.18));
   }
   .hero-mark :global(.brand-logo) { display: inline-flex; }
-  .hero-eyebrow {
-    margin: 0 0 0.75rem;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--color-ink-muted);
-  }
   .hero-title {
     font-size: clamp(2.5rem, 6vw, 4rem);
     line-height: 1.05;
