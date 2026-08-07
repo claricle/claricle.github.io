@@ -67,18 +67,17 @@ Two files drive the manual toggle:
 
 ### Logo assets
 
-`logo-claricle.png` at the repo root is the **canonical source** — never delete, never overwrite without explicit user approval. The PNG is the original designer's vector-traced artwork.
+The canonical brand assets (PDF source, all PNG/SVG variants, the full favicon set) live in their own repo: [`claricle/branding`](https://github.com/claricle/branding). That is the source of truth. This repo keeps only the subset the site actually serves from `public/`:
 
-Public assets derived from it:
+- `public/logo-claricle_icon-light.svg` &mdash; light-mode logo (saturated colors)
+- `public/logo-claricle_icon-dark.svg` &mdash; dark-mode logo (luminous colors)
+- `public/logo-claricle_icon-light.png` &mdash; 834×834 PNG used for Open Graph previews
+- `public/favicon.svg`, `favicon-96x96.png`, `favicon.ico`, `apple-touch-icon.png` &mdash; favicon set
+- `public/site.webmanifest` &mdash; PWA manifest
 
-- `public/logo-claricle.svg` — medium-saturation variant, used for OG image references
-- `public/logo-claricle.png` — 834×834 high-resolution PNG for Open Graph previews
-- `public/logo-claricle_icon-light.svg` / `.png` — light-mode icon variant (saturated colors that pop on white)
-- `public/logo-claricle_icon-dark.svg` / `.png` — dark-mode icon variant (luminous colors that glow on dark)
-- `public/favicon.svg`, `favicon-96x96.png`, `favicon.ico`, `apple-touch-icon.png` — favicon set
-- `public/logo-claricle.pdf` — designer's PDF source (preserved, do not modify)
+The root `logo-claricle.png` (200×200, original designer source) is preserved untouched. To add or change brand assets, edit the branding repo first, then copy only what the site needs into `public/`. Never invent ad-hoc variants here.
 
-`src/components/Logo.astro` is the **only** place that decides which logo variant to show. It takes `variant="auto"` (default) and swaps between light/dark via CSS based on `prefers-color-scheme` and `[data-theme]`. Use `<Logo size={N} />` everywhere — never hardcode `<img src="/logo-...">` in components.
+`src/components/Logo.astro` is the **only** place that decides which logo variant to show. It takes `variant="auto"` (default) and swaps between light/dark via CSS based on `prefers-color-scheme` and `[data-theme]`. Use `<Logo size={N} />` everywhere &mdash; never hardcode `<img src="/logo-...">` in components.
 
 ### Components are dumb, data is smart
 

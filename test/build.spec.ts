@@ -52,8 +52,10 @@ describe('astro build', () => {
     expect(existsSync(resolve(root, 'dist', 'blog', 'index.html'))).toBe(true);
   });
 
-  it('copies the canonical logo to dist root', () => {
-    expect(existsSync(resolve(root, 'dist', 'logo-claricle.png'))).toBe(true);
+  it('copies the OG logo PNG to dist', () => {
+    expect(
+      existsSync(resolve(root, 'dist', 'logo-claricle_icon-light.png'))
+    ).toBe(true);
   });
 
   afterAll(() => {

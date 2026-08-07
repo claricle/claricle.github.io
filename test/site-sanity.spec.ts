@@ -25,16 +25,6 @@ describe('site sanity', () => {
     ]);
   });
 
-  it('ships an SVG variant alongside the PNG', () => {
-    const svg = readFileSync(resolve(root, 'public', 'logo-claricle.svg'), 'utf-8');
-    expect(svg).toContain('<svg');
-    expect(svg).toContain('#e46b5b');
-    expect(svg).toContain('#5889c3');
-    expect(svg).toContain('#f6bb68');
-    expect(svg).toContain('#ad89b5');
-    expect(svg).toContain('#407f56');
-  });
-
   it('ships light and dark icon variants for theme-aware display', () => {
     const light = readFileSync(
       resolve(root, 'public', 'logo-claricle_icon-light.svg'),
@@ -50,6 +40,19 @@ describe('site sanity', () => {
     expect(light).toContain('#7ba8e1');
     expect(dark).toContain('#ff886a');
     expect(dark).toContain('#51a2ff');
+  });
+
+  it('ships the 834x834 light PNG for Open Graph previews', () => {
+    const png = readFileSync(
+      resolve(root, 'public', 'logo-claricle_icon-light.png')
+    );
+    const signature = png.subarray(0, 8);
+    expect(Array.from(signature)).toEqual([
+      0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a,
+    ]);
+    // IHDR width (bytes 16-19, big-endian) should be 834
+    const width = (png[16] << 24) | (png[17] << 16) | (png[18] << 8) | png[19];
+    expect(width).toBe(834);
   });
 
   it('manifest references existing icons', () => {
