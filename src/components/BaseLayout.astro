@@ -28,10 +28,11 @@ const ogImageURL = new URL(ogImage, Astro.site);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="/favicon-light.svg?v=20260807" data-favicon="svg" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-light-96x96.png?v=20260807" data-favicon="png" />
+    <link rel="shortcut icon" href="/favicon-light.ico?v=20260807" data-favicon="ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-light.png?v=20260807" data-favicon="apple" />
+    <link rel="manifest" href="/site.webmanifest?v=20260807" />
     <meta name="theme-color" content="#e56b5b" />
 
     <meta property="og:type" content="website" />
@@ -44,6 +45,42 @@ const ogImageURL = new URL(ogImage, Astro.site);
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="generator" content={Astro.generator} />
+
+    <script is:inline>
+      (function () {
+        const FAVICON_VERSION = '20260807';
+        function resolveTheme() {
+          try {
+            const stored = localStorage.getItem('claricle-theme');
+            if (stored === 'dark' || stored === 'light') return stored;
+          } catch { /* localStorage unavailable */ }
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        function applyFavicons(theme) {
+          const links = document.querySelectorAll('link[data-favicon]');
+          const paths = {
+            svg:   `/favicon-${theme}.svg`,
+            png:   `/favicon-${theme}-96x96.png`,
+            ico:   `/favicon-${theme}.ico`,
+            apple: `/apple-touch-icon-${theme}.png`,
+          };
+          for (const link of links) {
+            const kind = link.getAttribute('data-favicon');
+            const base = paths[kind];
+            if (base) link.setAttribute('href', `${base}?v=${FAVICON_VERSION}`);
+          }
+        }
+        applyFavicons(resolveTheme());
+        window.__applyClaricleFavicons = applyFavicons;
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+          try {
+            if (!localStorage.getItem('claricle-theme')) {
+              applyFavicons(resolveTheme());
+            }
+          } catch { /* ignore */ }
+        });
+      })();
+    </script>
 
     <script is:inline>
       (function () {

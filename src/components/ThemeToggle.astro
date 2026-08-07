@@ -96,6 +96,9 @@ const { size = 20 } = Astro.props;
       } catch {
         /* localStorage unavailable; session-only preference */
       }
+      if (window.__applyClaricleFavicons) {
+        window.__applyClaricleFavicons(next);
+      }
       button.setAttribute('aria-pressed', String(next === 'dark'));
     });
   }
