@@ -9,13 +9,13 @@ const { class: className = '' } = Astro.props;
   <figure class="logo-card light-card">
     <div class="card-head">Light mode</div>
     <div class="logo-stage light-stage">
-      <img src="/logo-claricle.svg" alt="Claricle logo, light mode" />
+      <img src="/logo-claricle_icon-light.svg" alt="Claricle logo, light mode" loading="lazy" decoding="async" />
     </div>
   </figure>
   <figure class="logo-card dark-card">
     <div class="card-head">Dark mode</div>
     <div class="logo-stage dark-stage">
-      <img src="/logo-claricle.svg" alt="Claricle logo, dark mode" />
+      <img src="/logo-claricle_icon-dark.svg" alt="Claricle logo, dark mode" loading="lazy" decoding="async" />
     </div>
   </figure>
 </div>
@@ -53,6 +53,7 @@ const { class: className = '' } = Astro.props;
   .logo-stage img {
     width: 140px;
     height: 140px;
+    display: block;
   }
   .light-stage {
     background: linear-gradient(135deg, #fdfdfd 0%, #f0f0f1 100%);

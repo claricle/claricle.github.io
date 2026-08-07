@@ -47,14 +47,38 @@ Tailwind 4 `@theme` block defines the spectrum palette as both CSS variables (`-
 
 The spectrum, in rainbow-upwards order:
 
-| Token | Hex | Category it represents |
-|---|---|---|
-| `--color-spectrum-coral` | `#e56b5b` | Conformance |
-| `--color-spectrum-amber` | `#f7bc68` | Conversion |
-| `--color-spectrum-forest` | `#3f7f55` | Page description |
-| `--color-spectrum-sky` | `#588ac4` | Parsers & libraries |
-| `--color-spectrum-plum` | `#ad89b6` | Layout & diagrams |
-| `--color-mist` | `#dddddd` | Neutral |
+| Token | Hex (light) | Hex (dark) | Category it represents |
+|---|---|---|---|
+| `--color-spectrum-coral` | `#e56b5b` | `#ff886a` | Conformance |
+| `--color-spectrum-amber` | `#f7bc68` | `#fcba49` | Conversion |
+| `--color-spectrum-forest` | `#3f7f55` | `#5fffa6` | Page description |
+| `--color-spectrum-sky` | `#588ac4` | `#51a2ff` | Parsers & libraries |
+| `--color-spectrum-plum` | `#ad89b6` | `#ffa1bf` | Layout & diagrams |
+| `--color-mist` | `#dddddd` | — | Neutral |
+
+### Theme system
+
+Light is the default. Dark mode is opted into via either `prefers-color-scheme: dark` (system) or `[data-theme="dark"]` (manual). A `[data-theme="light"]` attribute overrides the system preference back to light — needed so a manual "light" choice actually wins on a dark-pref system.
+
+Two files drive the manual toggle:
+
+- `src/components/ThemeToggle.astro` — button in the nav. Reads `localStorage['claricle-theme']`, falls back to system preference, persists on click.
+- `src/components/BaseLayout.astro` has an inline, pre-paint `<script is:inline>` that applies any stored theme before the first paint — prevents FOUC.
+
+### Logo assets
+
+`logo-claricle.png` at the repo root is the **canonical source** — never delete, never overwrite without explicit user approval. The PNG is the original designer's vector-traced artwork.
+
+Public assets derived from it:
+
+- `public/logo-claricle.svg` — medium-saturation variant, used for OG image references
+- `public/logo-claricle.png` — 834×834 high-resolution PNG for Open Graph previews
+- `public/logo-claricle_icon-light.svg` / `.png` — light-mode icon variant (saturated colors that pop on white)
+- `public/logo-claricle_icon-dark.svg` / `.png` — dark-mode icon variant (luminous colors that glow on dark)
+- `public/favicon.svg`, `favicon-96x96.png`, `favicon.ico`, `apple-touch-icon.png` — favicon set
+- `public/logo-claricle.pdf` — designer's PDF source (preserved, do not modify)
+
+`src/components/Logo.astro` is the **only** place that decides which logo variant to show. It takes `variant="auto"` (default) and swaps between light/dark via CSS based on `prefers-color-scheme` and `[data-theme]`. Use `<Logo size={N} />` everywhere — never hardcode `<img src="/logo-...">` in components.
 
 ### Components are dumb, data is smart
 
