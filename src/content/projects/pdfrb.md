@@ -1,11 +1,13 @@
 ---
 name: pdfrb
-title: PDF.rb
-tagline: Pure-Ruby PDF reader and writer.
+title: Pdfrb
+tagline: Pure-Ruby PDF reader, model, and serializer.
 description: >-
-  Reads and writes PDF 1.x / 2.0 files at the object level — pages, streams,
-  cross-reference tables, document catalog. Not a renderer; a substrate for
-  tools that manipulate PDF structure.
+  Byte-level PDF reader, Arlington-model-driven typed domain model, and
+  serializer. The PDF object model is sourced directly from vendored
+  Arlington PDF Model TSVs (the machine-readable definition of ISO
+  32000-2:2020), so field metadata, version predicates, and validators stay
+  aligned with the spec by data, not by hand-coded mimicry.
 category: page-description
 github: https://github.com/claricle/pdfrb
 docs: https://github.com/claricle/pdfrb#readme
@@ -14,5 +16,14 @@ language: ruby
 order: 190
 ---
 
-PDF.rb is what you reach for when you need to rewrite a PDF's structure
-without re-rendering it — extract pages, splice documents, patch metadata.
+## Two-direction contract
+
+- **PDF file ↔ Model** — parse PDF bytes into a typed Model and serialize
+  a Model back to PDF bytes. Round-trip is the correctness backbone.
+- **API Builder Input → Model** — `Document` and `Canvas` build a typed
+  Model from user intent, which the serializer then writes.
+
+Pdfrb is deliberately scoped to the PDF byte format. Layout concerns
+(page templates, flows, line breaking, tables) live in the sibling
+`arroolio` gem. Mirrors the layered design of
+[`postscript`](/projects/#postscript).
