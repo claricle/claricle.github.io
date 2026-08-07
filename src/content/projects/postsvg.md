@@ -1,7 +1,7 @@
 ---
 name: postsvg
-title: Postsvg
-tagline: Pure-Ruby PS / EPS ↔ SVG transformer.
+title: PS↔SVG
+tagline: Bidirectional PS / EPS to SVG, in pure Ruby.
 description: >-
   Bidirectional PostScript and Encapsulated PostScript transformer: PS ↔ SVG
   and SVG → EPS. Uses Nokogiri for the SVG side and a hand-written

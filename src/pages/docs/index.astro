@@ -1,0 +1,154 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../components/BaseLayout.astro';
+import GuideCard from '../../components/GuideCard.astro';
+
+const guides = (await getCollection('guides')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const planned = [
+  { format: 'SVG', description: 'Validation rules, common failures, and remediation patterns for the W3C SVG spec.' },
+  { format: 'PNG', description: 'ISO/IEC 15948 chunk-level reference with conformance fixtures and decoder notes.' },
+  { format: 'EMF', description: 'Microsoft Enhanced Metafile record types, drawing commands, and round-trip guidance.' },
+  { format: 'PDF', description: 'ISO 32000-2 object model, Arlington predicates, and the Pdfrb serialization contract.' },
+];
+---
+
+<BaseLayout
+  title="Docs — Claricle"
+  description="Format guides for every image format the Claricle ecosystem handles."
+>
+  <header class="page-hero">
+    <div class="page-hero-inner">
+      <p class="eyebrow">Docs</p>
+      <h1>Format guides</h1>
+      <p class="lede">
+        Deep, conformance-focused reference for every image format the
+        Claricle ecosystem handles &mdash; from the PostScript spec to PNG
+        chunk structure.
+      </p>
+    </div>
+  </header>
+
+  <section class="container">
+    <h2 class="section-head">Available now</h2>
+    {guides.length === 0 ? (
+      <p class="empty">No guides published yet &mdash; check back soon.</p>
+    ) : (
+      <div class="guides-grid">
+        {guides.map((guide) => <GuideCard guide={guide.data} />)}
+      </div>
+    )}
+
+    {planned.length > 0 && (
+      <>
+        <h2 class="section-head planned-head">On the roadmap</h2>
+        <p class="section-note">
+          These formats are next in line for dedicated guides. The libraries
+          already ship; the prose is in progress.
+        </p>
+        <div class="guides-grid planned-grid">
+          {planned.map((p) => (
+            <article class="guide-card placeholder">
+              <div class="card-head">
+                <h3 class="card-format">{p.format}</h3>
+                <span class="status-badge status-badge-planned">Planned</span>
+              </div>
+              <h2 class="card-title">Coming soon</h2>
+              <p class="card-desc">{p.description}</p>
+            </article>
+          ))}
+        </div>
+      </>
+    )}
+
+    <section class="also">
+      <h2>Library docs</h2>
+      <p>
+        Each library's README is its canonical documentation &mdash; browse
+        them all on the <a href="/projects/">projects page</a>.
+      </p>
+    </section>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    background: var(--color-canvas-soft);
+    border-bottom: 1px solid var(--color-line);
+    padding: 4rem 1.5rem 3rem;
+  }
+  .page-hero-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.78rem;
+    color: var(--color-ink-muted);
+    margin: 0 0 0.5rem;
+  }
+  .page-hero h1 {
+    margin: 0 0 0.75rem;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -0.02em;
+  }
+  .lede {
+    color: var(--color-ink-muted);
+    font-size: 1.1rem;
+    line-height: 1.55;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+  .section-head {
+    font-size: 1.4rem;
+    margin: 2rem 0 1rem;
+    letter-spacing: -0.01em;
+  }
+  .planned-head { margin-top: 4rem; }
+  .section-note {
+    color: var(--color-ink-muted);
+    margin: 0 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  .empty {
+    color: var(--color-ink-muted);
+    padding: 2rem 0;
+  }
+  .guides-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin: 1rem 0 2rem;
+  }
+  .planned-grid :global(.guide-card.placeholder) {
+    background: var(--color-canvas-soft);
+    border-style: dashed;
+  }
+  .also {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-line);
+  }
+  .also h2 {
+    font-size: 1.4rem;
+    margin: 0 0 0.5rem;
+  }
+  .also p {
+    margin: 0;
+    color: var(--color-ink-muted);
+  }
+  .also a {
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+</style>
