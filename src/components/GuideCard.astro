@@ -1,10 +1,17 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 
-interface Props {
-  guide: CollectionEntry<'guides'>['data'];
+type Guide = CollectionEntry<'guides'>['data'];
+interface Placeholder {
+  format: string;
+  description: string;
 }
-const { guide } = Astro.props;
+
+interface Props {
+  guide?: Guide;
+  placeholder?: Placeholder;
+}
+const { guide, placeholder } = Astro.props;
 
 const statusLabel: Record<string, string> = {
   stable: 'Stable',
@@ -12,21 +19,30 @@ const statusLabel: Record<string, string> = {
   wip: 'Work in progress',
   planned: 'Planned',
 };
+
+const isPlaceholder = !!placeholder;
+const format = guide?.format ?? placeholder?.format ?? '';
+const description = guide?.description ?? placeholder?.description ?? '';
+const status = guide?.status ?? 'planned';
+const title = guide?.title ?? 'Coming soon';
+const url = guide?.url;
 ---
 
-<article class:list={['guide-card', `status-${guide.status}`]}>
+<article class:list={['guide-card', { placeholder: isPlaceholder }]}>
   <div class="card-head">
-    <h3 class="card-format">{guide.format}</h3>
-    <span class:list={['status-badge', `status-badge-${guide.status}`]}>
-      {statusLabel[guide.status] ?? guide.status}
+    <h3 class="card-format">{format}</h3>
+    <span class:list={['status-badge', `status-badge-${status}`]}>
+      {statusLabel[status] ?? status}
     </span>
   </div>
-  <h2 class="card-title">{guide.title}</h2>
-  <p class="card-desc">{guide.description}</p>
-  <a href={guide.url} target="_blank" rel="noopener" class="card-link">
-    Read the guide
-    <span aria-hidden="true">&rarr;</span>
-  </a>
+  <h2 class="card-title">{title}</h2>
+  <p class="card-desc">{description}</p>
+  {url ? (
+    <a href={url} target="_blank" rel="noopener" class="card-link">
+      Read the guide
+      <span aria-hidden="true">&rarr;</span>
+    </a>
+  ) : null}
 </article>
 
 <style>
@@ -44,6 +60,15 @@ const statusLabel: Record<string, string> = {
     transform: translateY(-2px);
     border-color: var(--color-ink-muted);
     box-shadow: var(--shadow-card-hover);
+  }
+  .guide-card.placeholder {
+    background: var(--color-canvas-soft);
+    border-style: dashed;
+  }
+  .guide-card.placeholder:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--color-ink-muted);
   }
   .card-head {
     display: flex;
@@ -69,9 +94,9 @@ const statusLabel: Record<string, string> = {
     border: 1px solid currentColor;
     white-space: nowrap;
   }
-  .status-badge-stable { color: var(--color-spectrum-forest); }
-  .status-badge-beta   { color: var(--color-spectrum-sky); }
-  .status-badge-wip    { color: var(--color-spectrum-amber); }
+  .status-badge-stable  { color: var(--color-spectrum-forest); }
+  .status-badge-beta    { color: var(--color-spectrum-sky); }
+  .status-badge-wip     { color: var(--color-spectrum-amber); }
   .status-badge-planned { color: var(--color-ink-muted); }
 
   .card-title {
