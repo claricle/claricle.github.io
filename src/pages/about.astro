@@ -32,19 +32,13 @@ const byCategory = (c: SpectrumCategory) =>
     <section class="section">
       <h2>Etymology &amp; symbolism</h2>
       <p>
-        <strong>Clari-</strong> from the Latin <em>cl&amacr;rus</em> &mdash;
-        clear, bright, famous. The same root that gives us <em>clarity</em>
-        and <em>clarify</em>.
+        <strong>Clari-</strong> from the Latin <em>cl&amacr;rus</em> &mdash; clear, bright, famous. The same root that gives us <em>clarity</em> and <em>clarify</em>.
       </p>
       <p>
-        <strong>-cle</strong> from the Latin <em>cle</em> (drawn from
-        <em>particula</em>) &mdash; a small particle. The same suffix as
-        <em>particle</em>, <em>fascicle</em>, <em>article</em>.
+        <strong>-cle</strong> from the Latin <em>cle</em> (drawn from <em>particula</em>) &mdash; a small particle. The same suffix as <em>particle</em>, <em>fascicle</em>, <em>article</em>.
       </p>
       <p>
-        Together: <em>clear particle</em> or <em>bright essence</em>. A
-        perfect metaphor for what the suite does &mdash; validate every
-        particle of an image so its essence passes through unchanged.
+        Together: <em>clear particle</em> or <em>bright essence</em>. A perfect metaphor for what the suite does &mdash; validate every particle of an image so its essence passes through unchanged.
       </p>
       <table class="roots">
         <thead><tr><th>Part</th><th>Root</th><th>Meaning</th></tr></thead>
@@ -65,14 +59,11 @@ const byCategory = (c: SpectrumCategory) =>
         aim to preserve.
       </p>
       <LogoShowcase />
-      <p class="caption">
-        The logo reads as a rainbow rising &mdash; the warmer colors at the
-        base (conformance, conversion: the work), the cooler colors at the
-        crown (parsers, layout: the structure). The eye climbs with it.
+      <p>
+        The logo reads as a rainbow rising &mdash; the warmer colors at the base (conformance, conversion: the work), the cooler colors at the crown (parsers, layout: the structure). The eye climbs with it.
       </p>
       <p class="source-note">
-        The canonical source is <code>logo-claricle.png</code>. The SVG variant
-        on this site is derived from it for crisp scaling.
+        The canonical source is <code>logo-claricle.png</code>. The SVG variant on this site is derived from it for crisp scaling.
       </p>
     </section>
 
@@ -89,38 +80,24 @@ const byCategory = (c: SpectrumCategory) =>
     <section class="section">
       <h2>Origin story</h2>
       <p>
-        Claricle grew out of the publication pipelines that
-        <a href="https://www.ribose.com" target="_blank" rel="noopener">Ribose</a>
-        maintains for standards-development organisations. Those pipelines
-        ingest diagrams in EMF from Windows authors, EPS from print-era
-        designers, SVG from web tools, and PNG from everywhere &mdash; and they
-        need to validate, convert, and re-emit each one without losing a pixel.
+        Claricle grew out of the publication pipelines that <a href="https://www.ribose.com" target="_blank" rel="noopener">Ribose</a> maintains for standards-development organisations. Those pipelines ingest diagrams in EMF from Windows authors, EPS from print-era designers, SVG from web tools, and PNG from everywhere &mdash; and they need to validate, convert, and re-emit each one without losing a pixel.
       </p>
       <p>
-        Existing tools either did one format well (and demanded a JVM, an
-        Inkscape install, or a Ghostscript binary) or did many formats badly.
-        Claricle is the answer: pure-Ruby libraries that do each format
-        correctly, composable into any pipeline.
+        Existing tools either did one format well (and demanded a JVM, an Inkscape install, or a Ghostscript binary) or did many formats badly. Claricle is the answer: pure-Ruby libraries that do each format correctly, composable into any pipeline.
       </p>
     </section>
 
     <section class="section">
       <h2>Mission</h2>
       <p>
-        Make image processing in publication pipelines
-        <strong>correct, composable, and dependency-free</strong>. Every
-        Claricle library is pure Ruby (with a small amount of C where the
-        performance demands it), BSD-2-Clause licensed, and tested against the
-        formats' canonical conformance suites.
+        Make image processing in publication pipelines <strong>correct, composable, and dependency-free</strong>. Every Claricle library is pure Ruby (with a small amount of C where the performance demands it), BSD-2-Clause licensed, and tested against the formats' canonical conformance suites.
       </p>
     </section>
 
     <section class="section">
       <h2>The ecosystem</h2>
       <p>
-        {projects.length} projects across {categories.length} categories.
-        Every one lives at
-        <a href="https://github.com/claricle" target="_blank" rel="noopener">github.com/claricle</a>.
+        {projects.length} projects across {categories.length} categories. Every one lives at <a href="https://github.com/claricle" target="_blank" rel="noopener">github.com/claricle</a>.
       </p>
 
       {categories.map((cat) => (
@@ -145,9 +122,7 @@ const byCategory = (c: SpectrumCategory) =>
     <section class="section">
       <h2>Open source</h2>
       <p>
-        Every Claricle library is BSD-2-Clause licensed and maintained by
-        Ribose and the broader community. Contributions are welcome &mdash;
-        pick a project, read its CONTRIBUTING notes, and open a PR.
+        Every Claricle library is BSD-2-Clause licensed and maintained by Ribose and the broader community. Contributions are welcome &mdash; pick a project, read its CONTRIBUTING notes, and open a PR.
       </p>
       <ul class="links">
         <li><a href="https://github.com/claricle" target="_blank" rel="noopener">GitHub organization</a></li>
@@ -162,10 +137,7 @@ const byCategory = (c: SpectrumCategory) =>
       <pre><code>gem install claricle
 claricle validate ./diagram.svg
 claricle convert ./diagram.emf ./diagram.svg</code></pre>
-      <p>
-        Or pick the library that does the job you need from
-        <a href="/projects/">the ecosystem page</a>.
-      </p>
+      <p>Or pick the library that does the job you need from <a href="/projects/">the ecosystem page</a>.</p>
     </section>
   </article>
 </BaseLayout>
