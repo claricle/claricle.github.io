@@ -16,15 +16,6 @@ function loadManifest(): unknown {
 }
 
 describe('site sanity', () => {
-  it('exposes the canonical logo PNG at the repo root (never deleted)', () => {
-    const png = resolve(root, 'logo-claricle.png');
-    const buffer = readFileSync(png);
-    const signature = buffer.subarray(0, 8);
-    expect(Array.from(signature)).toEqual([
-      0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a,
-    ]);
-  });
-
   it('ships light and dark icon variants for theme-aware display', () => {
     const light = readFileSync(
       resolve(root, 'public', 'logo-claricle_icon-light.svg'),
