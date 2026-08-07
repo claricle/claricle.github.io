@@ -67,15 +67,21 @@ Two files drive the manual toggle:
 
 ### Logo assets
 
-The canonical brand assets (PDF source, all PNG/SVG variants, the full favicon set) live in their own repo: [`claricle/branding`](https://github.com/claricle/branding). That is the source of truth. This repo keeps only the subset the site actually serves from `public/`:
+The canonical brand assets live in their own repo: [`claricle/branding`](https://github.com/claricle/branding). The hierarchy is:
+
+1. **Canonical** — `logo-claricle.pdf` (designer's vector-traced source). Edit here, regenerate everything else.
+2. **Working** — SVG variants. The format we actually use, scalable and diffable as text.
+3. **Rasterized** — PNG / ICO. Generated artifacts, never hand-edited. Rasterize from SVG only where an SVG won't render (legacy favicons, OG previews, iOS home-screen).
+
+This repo keeps only the subset the site actually serves from `public/`:
 
 - `public/logo-claricle_icon-light.svg` &mdash; light-mode logo (saturated colors)
 - `public/logo-claricle_icon-dark.svg` &mdash; dark-mode logo (luminous colors)
-- `public/logo-claricle_icon-light.png` &mdash; 834×834 PNG used for Open Graph previews
+- `public/logo-claricle_icon-light.png` &mdash; 834×834 PNG used for Open Graph previews (rasterized from the SVG)
 - `public/favicon.svg`, `favicon-96x96.png`, `favicon.ico`, `apple-touch-icon.png` &mdash; favicon set
 - `public/site.webmanifest` &mdash; PWA manifest
 
-The root used to hold a 200×200 `logo-claricle.png`; that canonical source now lives in [`claricle/branding`](https://github.com/claricle/branding) and is no longer duplicated here. To add or change brand assets, edit the branding repo first, then copy only what the site needs into `public/`. Never invent ad-hoc variants here.
+To change brand assets: edit the PDF in `claricle/branding`, regenerate the SVG variants, rasterize the PNGs, then copy only what the site needs into `public/`. Never invent ad-hoc variants here.
 
 `src/components/Logo.astro` is the **only** place that decides which logo variant to show. It takes `variant="auto"` (default) and swaps between light/dark via CSS based on `prefers-color-scheme` and `[data-theme]`. Use `<Logo size={N} />` everywhere &mdash; never hardcode `<img src="/logo-...">` in components.
 
