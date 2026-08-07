@@ -62,9 +62,6 @@ const byCategory = (c: SpectrumCategory) =>
       <p>
         The logo reads as a rainbow rising &mdash; the warmer colors at the base (conformance, conversion: the work), the cooler colors at the crown (parsers, layout: the structure). The eye climbs with it.
       </p>
-      <p class="source-note">
-        The canonical source is <code>logo-claricle.png</code>. The SVG variant on this site is derived from it for crisp scaling.
-      </p>
     </section>
 
     <section class="section">
@@ -97,7 +94,7 @@ const byCategory = (c: SpectrumCategory) =>
     <section class="section">
       <h2>The ecosystem</h2>
       <p>
-        {projects.length} projects across {categories.length} categories. Every one lives at <a href="https://github.com/claricle" target="_blank" rel="noopener">github.com/claricle</a>.
+        Every project lives at <a href="https://github.com/claricle" target="_blank" rel="noopener">github.com/claricle</a>.
       </p>
 
       {categories.map((cat) => (
@@ -197,10 +194,6 @@ claricle convert ./diagram.emf ./diagram.svg</code></pre>
     color: var(--color-ink-muted) !important;
     margin-top: 1rem !important;
     font-style: italic;
-  }
-  .source-note {
-    font-size: 0.85rem !important;
-    color: var(--color-ink-muted) !important;
   }
   .source-note code, .section code {
     background: var(--color-canvas-soft);

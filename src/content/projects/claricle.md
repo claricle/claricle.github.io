@@ -31,5 +31,5 @@ claricle version
 ```
 
 The CLI is a thin Thor-based dispatcher over the dedicated libraries in the
-ecosystem. It exists so publication pipelines can depend on one gem instead
-of fifteen.
+ecosystem. It exists so publication pipelines can depend on a single gem
+instead of pulling in each library individually.
