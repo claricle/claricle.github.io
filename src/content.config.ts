@@ -80,4 +80,16 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { projects, blog };
+const guides = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/guides' }),
+  schema: z.object({
+    title: z.string(),
+    format: z.string(),
+    description: z.string(),
+    url: z.string().url(),
+    status: z.enum(['stable', 'beta', 'wip', 'planned']).default('stable'),
+    order: z.number().default(100),
+  }),
+});
+
+export const collections = { projects, blog, guides };
