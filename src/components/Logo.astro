@@ -1,0 +1,79 @@
+---
+interface Props {
+  size?: number;
+  variant?: 'auto' | 'light' | 'dark';
+  alt?: string;
+  class?: string;
+}
+
+const {
+  size = 32,
+  variant = 'auto',
+  alt = 'Claricle',
+  class: className = '',
+} = Astro.props;
+
+const dims = `width:${size}px;height:${size}px`;
+---
+
+{variant === 'auto' ? (
+  <span class:list={['brand-logo', 'auto', className]} style={dims} role="img" aria-label={alt}>
+    <img
+      src="/logo-claricle_icon-light.svg"
+      alt=""
+      width={size}
+      height={size}
+      class="logo-light"
+      loading="eager"
+      decoding="async"
+    />
+    <img
+      src="/logo-claricle_icon-dark.svg"
+      alt=""
+      width={size}
+      height={size}
+      class="logo-dark"
+      loading="eager"
+      decoding="async"
+    />
+  </span>
+) : (
+  <span class:list={['brand-logo', `fixed-${variant}`, className]} style={dims} role="img" aria-label={alt}>
+    <img
+      src={`/logo-claricle_icon-${variant}.svg`}
+      alt=""
+      width={size}
+      height={size}
+      loading="eager"
+      decoding="async"
+    />
+  </span>
+)}
+
+<style>
+  .brand-logo {
+    display: inline-block;
+    position: relative;
+    flex-shrink: 0;
+    line-height: 0;
+  }
+  .brand-logo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .brand-logo.auto .logo-dark { display: none; }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .brand-logo.auto .logo-light { display: none; }
+    :global(:root:not([data-theme='light'])) .brand-logo.auto .logo-dark { display: block; }
+  }
+
+  :global([data-theme='dark']) .brand-logo.auto .logo-light { display: none; }
+  :global([data-theme='dark']) .brand-logo.auto .logo-dark { display: block; }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .brand-logo img { opacity: 1; }
+  }
+</style>

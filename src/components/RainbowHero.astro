@@ -1,5 +1,6 @@
 ---
 import SpectrumStrip from './SpectrumStrip.astro';
+import Logo from './Logo.astro';
 
 interface Props {
   class?: string;
@@ -13,7 +14,7 @@ const { class: className = '' } = Astro.props;
 
   <div class="hero-inner">
     <div class="hero-mark">
-      <img src="/logo-claricle.svg" alt="Claricle logo" width="96" height="96" />
+      <Logo size={96} />
     </div>
     <p class="hero-eyebrow">An open source project of Ribose</p>
     <h1 class="hero-title">
@@ -74,13 +75,13 @@ const { class: className = '' } = Astro.props;
     margin: 0 auto;
     position: relative;
   }
-  .hero-mark img {
-    width: 96px;
-    height: 96px;
+  .hero-mark {
     margin: 0 auto 1.5rem;
-    display: block;
+    display: flex;
+    justify-content: center;
     filter: drop-shadow(0 8px 24px rgba(229, 107, 91, 0.18));
   }
+  .hero-mark :global(.brand-logo) { display: inline-flex; }
   .hero-eyebrow {
     margin: 0 0 0.75rem;
     font-size: 0.8rem;

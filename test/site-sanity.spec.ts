@@ -35,6 +35,23 @@ describe('site sanity', () => {
     expect(svg).toContain('#407f56');
   });
 
+  it('ships light and dark icon variants for theme-aware display', () => {
+    const light = readFileSync(
+      resolve(root, 'public', 'logo-claricle_icon-light.svg'),
+      'utf-8'
+    );
+    const dark = readFileSync(
+      resolve(root, 'public', 'logo-claricle_icon-dark.svg'),
+      'utf-8'
+    );
+    expect(light).toContain('<svg');
+    expect(dark).toContain('<svg');
+    expect(light).toContain('#db6b5b');
+    expect(light).toContain('#7ba8e1');
+    expect(dark).toContain('#ff886a');
+    expect(dark).toContain('#51a2ff');
+  });
+
   it('manifest references existing icons', () => {
     const manifest = JSON.parse(
       readFileSync(resolve(root, 'public', 'site.webmanifest'), 'utf-8')
@@ -59,6 +76,23 @@ describe('site sanity', () => {
     expect(css).toContain('--color-spectrum-forest: #3f7f55');
     expect(css).toContain('--color-spectrum-sky: #588ac4');
     expect(css).toContain('--color-spectrum-plum: #ad89b6');
+  });
+
+  it('brand.css overrides the spectrum palette for dark mode', () => {
+    const css = readFileSync(resolve(root, 'src', 'styles', 'brand.css'), 'utf-8');
+    expect(css).toContain('[data-theme=\'dark\']');
+    expect(css).toContain('--color-spectrum-coral: #ff886a');
+    expect(css).toContain('--color-spectrum-sky: #51a2ff');
+  });
+
+  it('BaseLayout has a FOUC-prevention script that applies stored theme before paint', () => {
+    const layout = readFileSync(
+      resolve(root, 'src', 'components', 'BaseLayout.astro'),
+      'utf-8'
+    );
+    expect(layout).toMatch(/is:inline/);
+    expect(layout).toMatch(/claricle-theme/);
+    expect(layout).toMatch(/setAttribute\(['"]data-theme['"]/);
   });
 
   it('astro types file exists (type generation has run)', () => {
