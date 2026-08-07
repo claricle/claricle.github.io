@@ -29,17 +29,21 @@ See [`CLAUDE.md`](./CLAUDE.md) for architecture and conventions.
 
 ## Brand
 
-The Claricle logo lives at `logo-claricle.png` (canonical, 200×200 RGBA). The
-SVG variant in `public/` is derived from it. The 5-color palette is extracted
-from the logo and declared as Tailwind tokens in `src/styles/brand.css`:
+The canonical logo, palette, and full asset set live in [`claricle/branding`](https://github.com/claricle/branding). This repo keeps only the subset the site actually serves from `public/`:
 
-| Token | Hex | Category |
-|---|---|---|
-| coral | `#e56b5b` | Conformance |
-| amber | `#f7bc68` | Conversion |
-| forest | `#3f7f55` | Page description |
-| sky | `#588ac4` | Parsers |
-| plum | `#ad89b6` | Layout & diagrams |
+- `logo-claricle_icon-light.svg` / `logo-claricle_icon-dark.svg` (theme-aware logo)
+- `logo-claricle_icon-light.png` (834×834, OG preview)
+- favicon set + webmanifest
+
+The 5-color palette is declared as Tailwind 4 `@theme` tokens in `src/styles/brand.css`:
+
+| Token | Hex (light) | Hex (dark) | Category |
+|---|---|---|---|
+| coral | `#e56b5b` | `#ff886a` | Conformance |
+| amber | `#f7bc68` | `#fcba49` | Conversion |
+| forest | `#3f7f55` | `#5fffa6` | Page description |
+| sky | `#588ac4` | `#51a2ff` | Parsers |
+| plum | `#ad89b6` | `#ffa1bf` | Layout & diagrams |
 
 ## Adding a project
 
