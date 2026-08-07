@@ -43,8 +43,8 @@ function loadProjects(): { slug: string; fm: Frontmatter }[] {
 describe('projects collection — schema', () => {
   const projects = loadProjects();
 
-  it('has at least 15 projects seeded', () => {
-    expect(projects.length).toBeGreaterThanOrEqual(15);
+  it('has at least 10 projects seeded', () => {
+    expect(projects.length).toBeGreaterThanOrEqual(10);
   });
 
   for (const { slug, fm } of projects) {

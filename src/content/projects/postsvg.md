@@ -1,18 +1,29 @@
 ---
 name: postsvg
-title: PS→SVG
-tagline: PostScript and EPS to SVG, in Ruby.
+title: Postsvg
+tagline: Pure-Ruby PS / EPS ↔ SVG transformer.
 description: >-
-  Converts Adobe PostScript (PS) and Encapsulated PostScript (EPS) into SVG.
-  The other leg of Vectory's pairwise conversion — handles what EMF→SVG does
-  not.
+  Bidirectional PostScript and Encapsulated PostScript transformer: PS ↔ SVG
+  and SVG → EPS. Uses Nokogiri for the SVG side and a hand-written
+  comment-aware lexer and stack-machine interpreter for the PS source side.
+  No Ghostscript, no Inkscape — the entire pipeline runs in Ruby.
 category: conversion
 github: https://github.com/claricle/postsvg
 docs: https://github.com/claricle/postsvg#readme
 featured: false
 language: ruby
-order: 110
+order: 115
 ---
 
-EPS remains the lingua franca of print-era vector graphics. PS→SVG turns it
-into the format modern web and document pipelines expect, in pure Ruby.
+## Install
+
+```sh
+gem install postsvg
+```
+
+Output is typed: the same `Postsvg::Model::Program` is produced whether the
+source was parsed from PS or built from SVG, so round-trips are trivial.
+
+Built on [`postscript`](/projects/#postscript) for the PS leg. Pairs with
+[`vectory`](/projects/#vectory) for end-to-end vector conversion across EPS,
+PS, EMF, and SVG.
