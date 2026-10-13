@@ -1,0 +1,58 @@
+<svg
+ width="425.24799999999993"
+ height="602.064"
+ viewBox="0 0 425.24799999999993 602.064"
+ version="1.2"
+ baseProfile="tiny"
+ xmlns="http://www.w3.org/2000/svg"
+ overflow="hidden"
+>
+<g id="edge-A_to_B">
+  <path fill="none" stroke="#000000" stroke-width="2.0" d="M 211.3 62.0 L 211.3 112.0"/>
+  <polygon fill="#000000" stroke="#000000" points="211.3,112.0 215.3,104.0 207.3,104.0"/>
+</g>
+<g id="edge-B_to_C">
+  <path fill="none" stroke="#000000" stroke-width="2.0" d="M 176.0 246.8 L 115.6 332.1"/>
+  <polygon fill="#000000" stroke="#000000" points="115.6,332.1 123.5,327.8 116.9,323.2"/>
+</g>
+<g id="edge-B_to_D">
+  <path fill="none" stroke="#000000" stroke-width="2.0" d="M 246.5 246.8 L 306.9 332.1"/>
+  <polygon fill="#000000" stroke="#000000" points="306.9,332.1 305.6,323.2 299.0,327.8"/>
+</g>
+<g id="edge-C_to_E">
+  <path fill="none" stroke="#000000" stroke-width="2.0" d="M 126.2 386.1 L 181.4 436.1"/>
+  <polygon fill="#000000" stroke="#000000" points="181.4,436.1 178.2,427.7 172.8,433.7"/>
+</g>
+<g id="edge-D_to_E">
+  <path fill="none" stroke="#000000" stroke-width="2.0" d="M 296.3 386.1 L 241.1 436.1"/>
+  <polygon fill="#000000" stroke="#000000" points="241.1,436.1 249.7,433.7 244.3,427.7"/>
+</g>
+<g id="edge-E_to_F">
+  <path fill="none" stroke="#000000" stroke-width="2.0" d="M 211.3 490.1 L 211.3 540.1"/>
+  <polygon fill="#000000" stroke="#000000" points="211.3,540.1 215.3,532.1 207.3,532.1"/>
+</g>
+<g id="node-A">
+  <rect fill="#ffffff" stroke="#000000" stroke-width="2.0" x="115.33199999999997" y="8.0" width="191.84" height="54.0"/>
+  <text fill="#000000" x="211.25199999999995" y="40.6" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16.0">Receive document</text>
+</g>
+<g id="node-B">
+  <polygon fill="#ffffff" stroke="#000000" stroke-width="2.0" points="211.25199999999995,112.0 296.284,197.03199999999998 211.25199999999995,282.06399999999996 126.21999999999997,197.03199999999998"/>
+  <text fill="#000000" x="211.25199999999995" y="202.632" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16.0">Diagram source?</text>
+</g>
+<g id="node-C">
+  <rect fill="#ffffff" stroke="#000000" stroke-width="2.0" x="8.0" y="332.06399999999996" width="176.88" height="54.0"/>
+  <text fill="#000000" x="96.44" y="364.664" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16.0">Render Mermaid</text>
+</g>
+<g id="node-D">
+  <rect fill="#ffffff" stroke="#000000" stroke-width="2.0" x="234.87999999999997" y="332.06399999999996" width="182.368" height="54.0"/>
+  <text fill="#000000" x="326.06399999999996" y="364.664" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16.0">Render PlantUML</text>
+</g>
+<g id="node-E">
+  <rect fill="#ffffff" stroke="#000000" stroke-width="2.0" x="140.69199999999995" y="436.06399999999996" width="141.12" height="54.0"/>
+  <text fill="#000000" x="211.25199999999995" y="468.664" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16.0">Embed SVG</text>
+</g>
+<g id="node-F">
+  <rect fill="#ffffff" stroke="#000000" stroke-width="2.0" x="120.65999999999997" y="540.064" width="181.184" height="54.0"/>
+  <text fill="#000000" x="211.25199999999995" y="572.664" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16.0">Build publication</text>
+</g>
+</svg>

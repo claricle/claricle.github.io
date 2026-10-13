@@ -1,0 +1,79 @@
+<svg
+ width="598.3420703125"
+ height="487.8400999999999"
+ viewBox="0 0 598.3420703125 487.8400999999999"
+ version="1.2"
+ baseProfile="tiny"
+ xmlns="http://www.w3.org/2000/svg"
+>
+<g id="title">
+  <text fill="#000000" x="299.17103515625" y="43.54" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14.0" font-weight="bold">Rendering a document</text>
+</g>
+<line stroke="#000000" stroke-width="1" x1="50.30029296875" y1="133.9783" x2="50.30029296875" y2="391.3517999999999" stroke-dasharray="5,5"/>
+<line stroke="#000000" stroke-width="1" x1="185.62548828125" y1="133.9783" x2="185.62548828125" y2="391.3517999999999" stroke-dasharray="5,5"/>
+<line stroke="#000000" stroke-width="1" x1="408.84548828125" y1="133.9783" x2="408.84548828125" y2="391.3517999999999" stroke-dasharray="5,5"/>
+<rect fill="#ffffff" stroke="#000000" stroke-width="1" x="403.84548828125" y="219.90979999999996" width="10.0" height="71.62099999999998"/>
+<rect fill="#ffffff" stroke="#000000" stroke-width="1" x="180.62548828125" y="166.28879999999998" width="10.0" height="195.75249999999994"/>
+<g id="fragment-175.62548828125-175.59929999999997">
+  <rect fill="none" stroke="#000000" stroke-width="1" x="175.62548828125" y="175.59929999999997" width="402.71658203125" height="125.24199999999996"/>
+  <path fill="#ffffff" stroke="#000000" stroke-width="1" d="M 175.62548828125 175.59929999999997 L 218.08548828125 175.59929999999997 L 218.08548828125 189.59929999999997 L 212.08548828125 195.59929999999997 L 175.62548828125 195.59929999999997 Z"/>
+  <text fill="#000000" x="183.62548828125" y="189.59929999999997" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="14.0" font-weight="bold">loop</text>
+  <text fill="#000000" x="226.08548828125" y="189.59929999999997" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="14.0">[Each diagram]</text>
+</g>
+<g id="message-1">
+  <path fill="none" stroke="#000000" stroke-width="2.0" d="M 50.30029296875 166.28879999999998 L 178.62548828125 166.28879999999998"/>
+  <polygon fill="#000000" stroke="#000000" stroke-width="2.0" points="168.62548828125,162.28879999999998 178.62548828125,166.28879999999998 168.62548828125,170.28879999999998 172.62548828125,166.28879999999998"/>
+  <text fill="#000000" x="114.462890625" y="160.28879999999998" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14.0">Submit document</text>
+</g>
+<g id="message-2">
+  <path fill="none" stroke="#000000" stroke-width="2.0" d="M 185.62548828125 219.90979999999996 L 401.84548828125 219.90979999999996"/>
+  <polygon fill="#000000" stroke="#000000" stroke-width="2.0" points="391.84548828125,215.90979999999996 401.84548828125,219.90979999999996 391.84548828125,223.90979999999996 395.84548828125,219.90979999999996"/>
+  <text fill="#000000" x="293.73548828125" y="213.90979999999996" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14.0">Render source</text>
+</g>
+<g id="message-3">
+  <path fill="none" stroke="#000000" stroke-width="2.0" d="M 408.84548828125 249.22029999999995 L 450.84548828125 249.22029999999995 L 450.84548828125 262.22029999999995 L 408.84548828125 262.22029999999995"/>
+  <polygon fill="#000000" stroke="#000000" stroke-width="2.0" points="418.84548828125,258.22029999999995 408.84548828125,262.22029999999995 418.84548828125,266.22029999999995 414.84548828125,262.22029999999995"/>
+  <text fill="#000000" x="456.84548828125" y="261.22029999999995" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="14.0">Arrange elements</text>
+</g>
+<g id="message-4">
+  <path fill="none" stroke="#000000" stroke-width="2.0" d="M 408.84548828125 291.53079999999994 L 185.62548828125 291.53079999999994" stroke-dasharray="6,4"/>
+  <polygon fill="#000000" stroke="#000000" stroke-width="2.0" points="195.62548828125,287.53079999999994 185.62548828125,291.53079999999994 195.62548828125,295.53079999999994 191.62548828125,291.53079999999994"/>
+  <text fill="#000000" x="297.23548828125" y="285.53079999999994" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14.0">SVG diagram</text>
+</g>
+<g id="message-5">
+  <path fill="none" stroke="#000000" stroke-width="2.0" d="M 185.62548828125 362.0412999999999 L 50.30029296875 362.0412999999999" stroke-dasharray="6,4"/>
+  <polygon fill="#000000" stroke="#000000" stroke-width="2.0" points="60.30029296875,358.0412999999999 50.30029296875,362.0412999999999 60.30029296875,366.0412999999999 56.30029296875,362.0412999999999"/>
+  <text fill="#000000" x="117.962890625" y="356.0412999999999" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14.0">Document ready</text>
+</g>
+<g id="note-3324849719">
+  <path fill="#fefecd" stroke="#000000" stroke-width="1" d="M 175.62548828125 307.84129999999993 L 408.84548828125 307.84129999999993 L 418.84548828125 317.84129999999993 L 418.84548828125 340.0412999999999 L 175.62548828125 340.0412999999999 Z"/>
+  <path fill="#fefecd" stroke="#000000" stroke-width="1" d="M 408.84548828125 307.84129999999993 L 408.84548828125 317.84129999999993 L 418.84548828125 317.84129999999993"/>
+  <text fill="#000000" x="183.62548828125" y="328.84129999999993" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="14.0">SVG stays in the publication pipeline</text>
+</g>
+<g id="participant-Author-57.489999999999995">
+  <ellipse fill="#ffffff" stroke="#000000" stroke-width="2.0" cx="50.30029296875" cy="65.99" rx="8.0" ry="8.0"/>
+  <path fill="none" stroke="#000000" stroke-width="2.0" d="M 50.30029296875 73.99 L 50.30029296875 100.99 M 37.30029296875 81.99 L 63.30029296875 81.99 M 50.30029296875 100.99 L 37.30029296875 115.99 M 50.30029296875 100.99 L 63.30029296875 115.99"/>
+  <text fill="#000000" x="50.30029296875" y="131.02519999999998" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14.0">Author</text>
+</g>
+<g id="participant-Build-57.489999999999995">
+  <rect fill="#ffffff" stroke="#000000" stroke-width="2.0" x="124.337890625" y="102.49" width="122.5751953125" height="30.4883" rx="2.5" ry="2.5"/>
+  <text fill="#000000" x="185.62548828125" y="121.97829999999999" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14.0">Document build</text>
+</g>
+<g id="participant-Sirena-57.489999999999995">
+  <rect fill="#ffffff" stroke="#000000" stroke-width="2.0" x="381.07791015625" y="102.49" width="55.53515625" height="30.4883" rx="2.5" ry="2.5"/>
+  <text fill="#000000" x="408.84548828125" y="121.97829999999999" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14.0">Sirena</text>
+</g>
+<g id="participant-Author-391.3517999999999">
+  <ellipse fill="#ffffff" stroke="#000000" stroke-width="2.0" cx="50.30029296875" cy="416.3400999999999" rx="8.0" ry="8.0"/>
+  <path fill="none" stroke="#000000" stroke-width="2.0" d="M 50.30029296875 424.3400999999999 L 50.30029296875 451.3400999999999 M 37.30029296875 432.3400999999999 L 63.30029296875 432.3400999999999 M 50.30029296875 451.3400999999999 L 37.30029296875 466.3400999999999 M 50.30029296875 451.3400999999999 L 63.30029296875 466.3400999999999"/>
+  <text fill="#000000" x="50.30029296875" y="404.8869999999999" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14.0">Author</text>
+</g>
+<g id="participant-Build-391.3517999999999">
+  <rect fill="#ffffff" stroke="#000000" stroke-width="2.0" x="124.337890625" y="391.3517999999999" width="122.5751953125" height="30.4883" rx="2.5" ry="2.5"/>
+  <text fill="#000000" x="185.62548828125" y="455.8400999999999" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14.0">Document build</text>
+</g>
+<g id="participant-Sirena-391.3517999999999">
+  <rect fill="#ffffff" stroke="#000000" stroke-width="2.0" x="381.07791015625" y="391.3517999999999" width="55.53515625" height="30.4883" rx="2.5" ry="2.5"/>
+  <text fill="#000000" x="408.84548828125" y="455.8400999999999" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14.0">Sirena</text>
+</g>
+</svg>
