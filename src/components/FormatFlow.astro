@@ -1,0 +1,267 @@
+---
+/**
+ * FormatFlow — the signature element.
+ *
+ * The Claricle pipeline as a hub-and-spoke diagram: EMF/WMF and PS/EPS flow
+ * in to the SVG interchange hub; PNG is projected out of it. A conformance
+ * lens hovers over the hub. Connectors carry an animated dash flow, disabled
+ * under prefers-reduced-motion. All colors come from the brand tokens, so
+ * the diagram follows the theme system automatically.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<section class:list={['format-flow', className]}>
+  <header class="flow-head">
+    <p class="eyebrow">The format flow</p>
+    <h2>SVG at the hub</h2>
+    <p class="flow-lede">
+      Every format the suite touches is fully translatable. Vector formats are
+      manipulable at the DOM level &mdash; and SVG is where they all meet.
+    </p>
+  </header>
+
+  <figure class="flow-figure">
+    <svg
+      class="flow-svg"
+      viewBox="0 0 920 400"
+      role="img"
+      aria-labelledby="flow-title flow-desc"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <title id="flow-title">Claricle format flow</title>
+      <desc id="flow-desc">
+        EMF and WMF files flow into the SVG interchange hub. PostScript and EPS
+        files flow into the same hub as the print projection. SVG projects out
+        to PNG, the raster projection. Conformance lenses — png_conform and
+        svg_conform — validate the formats against their standards.
+      </desc>
+
+      <defs>
+        <pattern id="flow-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+          <circle cx="1" cy="1" r="1" class="grid-dot"></circle>
+        </pattern>
+      </defs>
+
+      <rect class="flow-canvas" x="0" y="0" width="920" height="400" rx="18"></rect>
+      <rect class="flow-grid-layer" x="0" y="0" width="920" height="400" rx="18" fill="url(#flow-grid)"></rect>
+
+      <!-- connectors: base line + animated flow overlay -->
+      <g class="connectors">
+        <path class="wire" d="M 205 110 C 285 110, 320 138, 370 166"></path>
+        <path class="wire-flow" d="M 205 110 C 285 110, 320 138, 370 166"></path>
+
+        <path class="wire" d="M 205 300 C 285 300, 320 268, 370 238"></path>
+        <path class="wire-flow" d="M 205 300 C 285 300, 320 268, 370 238"></path>
+
+        <path class="wire" d="M 552 200 C 625 200, 660 200, 726 200"></path>
+        <path class="wire-flow" d="M 552 200 C 625 200, 660 200, 726 200"></path>
+
+        <!-- arrowheads -->
+        <path class="head head-sky" d="M 370 166 l -14 -7 l 3 8 l -7 5 Z"></path>
+        <path class="head head-forest" d="M 370 238 l -14 7 l 3 -8 l -7 -5 Z"></path>
+        <path class="head head-amber" d="M 730 200 l -14 -7 l 3 7 l -3 7 Z"></path>
+      </g>
+
+      <!-- EMF/WMF ingestion node -->
+      <g class="node node-sky">
+        <rect x="60" y="70" width="145" height="80" rx="12"></rect>
+        <text class="node-title" x="132" y="105">EMF / WMF</text>
+        <text class="node-sub" x="132" y="128">ingestion spoke</text>
+      </g>
+
+      <!-- PostScript print node -->
+      <g class="node node-forest">
+        <rect x="60" y="260" width="145" height="80" rx="12"></rect>
+        <text class="node-title" x="132" y="295">PS / EPS</text>
+        <text class="node-sub" x="132" y="318">print projection</text>
+      </g>
+
+      <!-- PNG raster node -->
+      <g class="node node-amber">
+        <rect x="730" y="160" width="130" height="80" rx="12"></rect>
+        <text class="node-title" x="795" y="195">PNG</text>
+        <text class="node-sub" x="795" y="218">raster projection</text>
+      </g>
+
+      <!-- SVG hub -->
+      <g class="node node-hub">
+        <rect x="370" y="140" width="182" height="120" rx="16"></rect>
+        <text class="hub-title" x="461" y="192">SVG</text>
+        <text class="node-sub" x="461" y="216">interchange hub</text>
+        <!-- vector motif: a bezier path with anchor handles -->
+        <path class="motif-path" d="M 396 232 C 412 218, 428 246, 444 234 C 458 224, 470 244, 486 236"></path>
+        <circle class="motif-anchor" cx="396" cy="232" r="2.5"></circle>
+        <circle class="motif-anchor" cx="444" cy="234" r="2.5"></circle>
+        <circle class="motif-anchor" cx="486" cy="236" r="2.5"></circle>
+      </g>
+
+      <!-- conformance lens over the hub -->
+      <g class="lens">
+        <circle class="lens-glass" cx="580" cy="282" r="26"></circle>
+        <line class="lens-handle" x1="599" y1="301" x2="620" y2="322"></line>
+        <line class="lens-tick" x1="568" y1="282" x2="592" y2="282"></line>
+        <line class="lens-tick" x1="580" y1="272" x2="580" y2="292"></line>
+        <text class="lens-label" x="580" y="338">conformance lenses</text>
+      </g>
+    </svg>
+    <figcaption class="flow-caption">
+      png_conform and svg_conform read every format as a lens: the file is
+      checked against the standard it claims, not against its decoder's
+      tolerance.
+    </figcaption>
+  </figure>
+</section>
+
+<style>
+  .format-flow {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 4.5rem 1.5rem 1rem;
+  }
+  .flow-head {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.78rem;
+    color: var(--color-ink-muted);
+    margin: 0 0 0.5rem;
+  }
+  .flow-head h2 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    letter-spacing: -0.015em;
+  }
+  .flow-lede {
+    color: var(--color-ink-muted);
+    max-width: 620px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+    line-height: 1.55;
+  }
+  .flow-figure {
+    margin: 0;
+  }
+  .flow-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .flow-canvas {
+    fill: var(--color-canvas-soft);
+  }
+  .grid-dot {
+    fill: var(--color-ink);
+    opacity: 0.07;
+  }
+  .flow-grid-layer {
+    fill: url(#flow-grid);
+  }
+
+  .wire {
+    fill: none;
+    stroke: var(--color-line);
+    stroke-width: 2;
+  }
+  .wire-flow {
+    fill: none;
+    stroke-width: 2;
+    stroke-dasharray: 6 10;
+    stroke-linecap: round;
+    animation: flow-march 1.4s linear infinite;
+  }
+  .connectors .wire-flow:nth-of-type(2) { stroke: var(--color-spectrum-sky); }
+  .connectors .wire-flow:nth-of-type(4) { stroke: var(--color-spectrum-forest); }
+  .connectors .wire-flow:nth-of-type(6) { stroke: var(--color-spectrum-amber); }
+
+  .head { stroke: none; }
+  .head-sky    { fill: var(--color-spectrum-sky); }
+  .head-forest { fill: var(--color-spectrum-forest); }
+  .head-amber  { fill: var(--color-spectrum-amber); }
+
+  @keyframes flow-march {
+    to { stroke-dashoffset: -32; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wire-flow { animation: none; }
+  }
+
+  .node rect {
+    fill: var(--color-canvas);
+    stroke: var(--color-line);
+    stroke-width: 1.5;
+  }
+  .node-sky rect    { stroke: var(--color-spectrum-sky); }
+  .node-forest rect { stroke: var(--color-spectrum-forest); }
+  .node-amber rect  { stroke: var(--color-spectrum-amber); }
+  .node-hub rect {
+    stroke: var(--color-ink);
+    stroke-width: 2;
+  }
+  .node-title,
+  .hub-title,
+  .node-sub,
+  .lens-label {
+    font-family: var(--font-sans);
+    text-anchor: middle;
+  }
+  .node-title {
+    font-size: 15px;
+    font-weight: 600;
+    fill: var(--color-ink);
+  }
+  .hub-title {
+    font-size: 24px;
+    font-weight: 700;
+    fill: var(--color-ink);
+    letter-spacing: 0.02em;
+  }
+  .node-sub {
+    font-size: 11.5px;
+    fill: var(--color-ink-muted);
+  }
+  .motif-path {
+    fill: none;
+    stroke: var(--color-spectrum-plum);
+    stroke-width: 1.5;
+  }
+  .motif-anchor {
+    fill: var(--color-spectrum-plum);
+  }
+
+  .lens-glass,
+  .lens-handle {
+    fill: none;
+    stroke: var(--color-spectrum-coral);
+    stroke-width: 2;
+  }
+  .lens-tick {
+    stroke: var(--color-spectrum-coral);
+    stroke-width: 1;
+    opacity: 0.7;
+  }
+  .lens-label {
+    font-size: 11.5px;
+    fill: var(--color-spectrum-coral);
+  }
+
+  .flow-caption {
+    margin: 0.9rem auto 0;
+    max-width: 560px;
+    text-align: center;
+    font-size: 0.88rem;
+    color: var(--color-ink-muted);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 640px) {
+    .format-flow { padding-top: 3rem; }
+  }
+</style>

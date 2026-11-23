@@ -41,6 +41,8 @@ Every project page-rendering path consumes `src/content/projects/*.md` through A
 
 To add a project: drop a markdown file in `src/content/projects/`, fill the frontmatter per the schema. To change how all projects render: edit the components.
 
+Every project carries a **role** (`model` | `lens` | `projection` | `engine` | `suite`) alongside its spectrum category. Roles are the pipeline view (the projects page groups by role); categories are the color/spectrum view (badges, filter). `ROLE_META` and `ROLE_ORDER` in `src/content.config.ts` drive both the grouped grid and the noscript fallback. An optional `rubygems` frontmatter URL links the published gem — note the gem name can differ from the repo name (`libpng-ruby` publishes as `libpng`, `emf2svg-ruby` as `emf2svg`).
+
 ### Brand tokens live in `src/styles/brand.css`
 
 Tailwind 4 `@theme` block defines the spectrum palette as both CSS variables (`--color-spectrum-*`) and utility classes (`bg-spectrum-coral`, etc.). The palette is sourced from the canonical logo in [`claricle/branding`](https://github.com/claricle/branding). Do not invent new brand colors — extend the neutral scale if you need grays.
@@ -92,10 +94,13 @@ To change brand assets: edit the PDF in `claricle/branding`, regenerate the SVG 
 ### Components are dumb, data is smart
 
 - `BaseLayout.astro` — site shell (head, nav, footer)
-- `RainbowHero.astro` — home hero with the upward-rainbow gradient
+- `RainbowHero.astro` — home hero with the upward-rainbow gradient and the models/lenses/projections thesis
+- `FormatFlow.astro` — the signature element: hub-and-spoke diagram (SVG hub, EMF ingestion, PS print projection, PNG raster projection) with reduced-motion-respecting dash flow
+- `FeatureGrid.astro` — the four-role explainer (models / lenses / projections / engines) on the home page
+- `Quickstart.astro` — install-and-run snippets for the flagship gems; every snippet must be verifiable against the gem's own README
 - `ProjectCard.astro` — props-driven, renders one project; no fetching
-- `ProjectsGrid.astro` — takes a list of projects, lays them out, optional filter island
-- `ProjectFilter.vue` — Vue island, the only client-side interactivity (category filter)
+- `ProjectsGrid.astro` — takes a list of projects; `grouped` renders role sections (Astro + noscript), `filterable` hands the data to the filter island
+- `ProjectFilter.vue` — Vue island, the only client-side interactivity (category filter, role-grouped rendering)
 - `SpectrumStrip.astro` — the rainbow legend, reused in hero + about
 - `LogoShowcase.astro` / `ColorPalette.astro` — about-page display
 
@@ -107,6 +112,8 @@ There is no UI to unit-test meaningfully — Astro components are mostly markup.
 
 - Every project markdown file validates against the Zod schema
 - Every project's `category` is in the spectrum set
+- Every project's `role` is in the role set, and every core role is covered
+- Every project's `rubygems` URL, when present, is a rubygems.org/gems page
 - Every project's `github` URL points at `github.com/claricle/`
 - No two projects share a `name`
 - Featured projects render on the home page (smoke test by querying the collection)

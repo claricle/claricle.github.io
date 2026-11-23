@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue';
-import type { Component } from 'vue';
 
 interface ProjectLite {
   id: string;
@@ -9,21 +8,32 @@ interface ProjectLite {
   tagline: string;
   description: string;
   category: string;
+  role: string;
   github: string;
+  rubygems?: string;
   docs?: string;
   featured: boolean;
   language: string;
   order: number;
 }
 
+interface RoleMeta {
+  role: string;
+  label: string;
+  description: string;
+  token: string;
+}
+
 interface Props {
   categories: string[];
+  roles: RoleMeta[];
   initial?: string;
 }
 const props = withDefaults(defineProps<Props>(), { initial: 'all' });
 
 const active = ref(props.initial);
 const projects = ref<ProjectLite[]>([]);
+const roleList = ref<RoleMeta[]>(props.roles);
 
 const CATEGORY_LABELS: Record<string, string> = {
   conformance: 'Conformance',
@@ -49,6 +59,17 @@ const filtered = computed(() =>
     : projects.value.filter((p) => p.category === active.value)
 );
 
+const groups = computed(() =>
+  roleList.value
+    .map((meta) => ({
+      meta,
+      items: filtered.value.filter((p) => p.role === meta.role),
+    }))
+    .filter((group) => group.items.length > 0)
+);
+
+const totalVisible = computed(() => filtered.value.length);
+
 function syncUrl() {
   const url = new URL(window.location.href);
   if (active.value === 'all') url.searchParams.delete('category');
@@ -61,6 +82,8 @@ onMounted(() => {
   if (!host) return;
   const data = host.getAttribute('data-projects');
   if (data) projects.value = JSON.parse(data);
+  const roles = host.getAttribute('data-roles');
+  if (roles) roleList.value = JSON.parse(roles);
 
   const params = new URLSearchParams(window.location.search);
   const fromUrl = params.get('category');
@@ -86,35 +109,49 @@ watch(active, syncUrl);
       role="tab"
       :aria-selected="active === cat"
     >{{ CATEGORY_LABELS[cat] ?? cat }}</button>
-    <span class="result-count">{{ filtered.length }} project{{ filtered.length === 1 ? '' : 's' }}</span>
+    <span class="result-count" aria-live="polite">
+      {{ totalVisible }} project{{ totalVisible === 1 ? '' : 's' }}
+    </span>
   </div>
 
-  <div class="filtered-grid">
-    <article
-      v-for="p in filtered"
-      :key="p.id"
-      :class="['card', `cat-${CATEGORY_TOKENS[p.category]}`]"
-    >
-      <div :class="['card-stripe', `stripe-${CATEGORY_TOKENS[p.category]}`]"></div>
-      <div class="card-body">
-        <header class="card-header">
-          <h3 class="card-title">{{ p.title }}</h3>
-          <span :class="['badge', `badge-${CATEGORY_TOKENS[p.category]}`]">
-            {{ CATEGORY_LABELS[p.category] }}
-          </span>
-        </header>
-        <p class="card-tagline">{{ p.tagline }}</p>
-        <p class="card-desc">{{ p.description }}</p>
-        <div class="card-meta">
-          <span :class="['lang', `lang-${p.language}`]">{{ p.language }}</span>
+  <section
+    v-for="group in groups"
+    :key="group.meta.role"
+    :id="`role-filter-${group.meta.role}`"
+    class="role-section"
+  >
+    <header class="role-head">
+      <h2>{{ group.meta.label }}</h2>
+      <p>{{ group.meta.description }}</p>
+    </header>
+    <div class="filtered-grid">
+      <article
+        v-for="p in group.items"
+        :key="p.id"
+        :class="['card', `cat-${CATEGORY_TOKENS[p.category]}`]"
+      >
+        <div :class="['card-stripe', `stripe-${CATEGORY_TOKENS[p.category]}`]"></div>
+        <div class="card-body">
+          <header class="card-header">
+            <h3 class="card-title">{{ p.title }}</h3>
+            <span :class="['badge', `badge-${CATEGORY_TOKENS[p.category]}`]">
+              {{ CATEGORY_LABELS[p.category] }}
+            </span>
+          </header>
+          <p class="card-tagline">{{ p.tagline }}</p>
+          <p class="card-desc">{{ p.description }}</p>
+          <div class="card-meta">
+            <span :class="['lang', `lang-${p.language}`]">{{ p.language }}</span>
+          </div>
+          <div class="card-links">
+            <a :href="p.github" target="_blank" rel="noopener" class="link-primary">GitHub</a>
+            <a v-if="p.rubygems" :href="p.rubygems" target="_blank" rel="noopener" class="link-secondary">RubyGems</a>
+            <a v-if="p.docs" :href="p.docs" target="_blank" rel="noopener" class="link-secondary">Docs</a>
+          </div>
         </div>
-        <div class="card-links">
-          <a :href="p.github" target="_blank" rel="noopener" class="link-primary">GitHub</a>
-          <a v-if="p.docs" :href="p.docs" target="_blank" rel="noopener" class="link-secondary">Docs</a>
-        </div>
-      </div>
-    </article>
-  </div>
+      </article>
+    </div>
+  </section>
 </template>
 
 <style scoped>
@@ -148,11 +185,26 @@ watch(active, syncUrl);
   color: var(--color-ink-muted);
 }
 
+.role-section { margin: 1rem 0 2.5rem; }
+.role-head { margin: 0 0 0.5rem; }
+.role-head h2 {
+  margin: 0 0 0.3rem;
+  font-size: 1.4rem;
+  letter-spacing: -0.01em;
+}
+.role-head p {
+  margin: 0;
+  color: var(--color-ink-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  max-width: 640px;
+}
+
 .filtered-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.25rem;
-  margin: 1.5rem 0 3rem;
+  margin: 1.5rem 0 0;
 }
 .card {
   position: relative;
@@ -201,6 +253,15 @@ watch(active, syncUrl);
 .badge-forest { color: var(--color-spectrum-forest); }
 .badge-sky    { color: var(--color-spectrum-sky); }
 .badge-plum   { color: var(--color-spectrum-plum); }
+
+:global([data-theme='dark']) .badge-amber,
+:global(.dark) .badge-amber {
+  color: var(--color-spectrum-amber);
+}
+@media (prefers-color-scheme: dark) {
+  .badge-amber { color: var(--color-spectrum-amber); }
+}
+
 .card-links { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
 .link-primary, .link-secondary {
   font-size: 0.85rem;

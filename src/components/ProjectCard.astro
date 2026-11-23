@@ -24,6 +24,9 @@ const tokenClass = `badge-${meta.token}`;
     </div>
     <div class="card-links">
       <a href={project.github} target="_blank" rel="noopener" class="link-primary">GitHub</a>
+      {project.rubygems && (
+        <a href={project.rubygems} target="_blank" rel="noopener" class="link-secondary">RubyGems</a>
+      )}
       {project.docs && (
         <a href={project.docs} target="_blank" rel="noopener" class="link-secondary">Docs</a>
       )}

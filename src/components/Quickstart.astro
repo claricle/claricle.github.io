@@ -1,0 +1,198 @@
+---
+/**
+ * Quickstart — install-and-run snippets for the flagship gems.
+ *
+ * Every snippet here is verified against the corresponding gem's README.
+ * Do not add a snippet that does not appear in (or follow directly from)
+ * the gem's documented interface.
+ */
+interface QuickstartEntry {
+  name: string;
+  role: string;
+  token: 'coral' | 'amber' | 'forest' | 'sky' | 'plum';
+  blurb: string;
+  install: string;
+  lang: 'ruby' | 'sh';
+  snippet: string;
+  github: string;
+  rubygems: string;
+}
+
+const entries: QuickstartEntry[] = [
+  {
+    name: 'emfsvg',
+    role: 'Projection',
+    token: 'amber',
+    blurb: 'EMF to SVG and back — the ingestion spoke, in pure Ruby.',
+    install: 'gem install emfsvg',
+    lang: 'ruby',
+    snippet: 'require "emfsvg"\n\nsvg = Emfsvg.from_file("image.emf")',
+    github: 'https://github.com/claricle/emfsvg',
+    rubygems: 'https://rubygems.org/gems/emfsvg',
+  },
+  {
+    name: 'postsvg',
+    role: 'Projection',
+    token: 'amber',
+    blurb: 'PostScript and EPS to SVG — the print projection, no Ghostscript.',
+    install: 'gem install postsvg',
+    lang: 'ruby',
+    snippet: 'require "postsvg"\n\nPostsvg.to_svg_file("input.eps", "output.svg")',
+    github: 'https://github.com/claricle/postsvg',
+    rubygems: 'https://rubygems.org/gems/postsvg',
+  },
+  {
+    name: 'vectory',
+    role: 'Projection',
+    token: 'amber',
+    blurb: 'Pairwise conversion across EPS, PS, EMF, and SVG from one CLI.',
+    install: 'gem install vectory',
+    lang: 'sh',
+    snippet: 'vectory -f svg diagram.emf',
+    github: 'https://github.com/claricle/vectory',
+    rubygems: 'https://rubygems.org/gems/vectory',
+  },
+  {
+    name: 'svg_conform',
+    role: 'Lens',
+    token: 'coral',
+    blurb: 'Gate third-party SVG against a conformance profile.',
+    install: 'gem install svg_conform',
+    lang: 'sh',
+    snippet: 'svg_conform check file.svg --profile=metanorma',
+    github: 'https://github.com/claricle/svg_conform',
+    rubygems: 'https://rubygems.org/gems/svg_conform',
+  },
+];
+---
+
+<section class="quickstart">
+  <header class="qs-head">
+    <p class="eyebrow">Quickstart</p>
+    <h2>Four gems, running in minutes</h2>
+    <p class="qs-lede">
+      Each snippet is straight from the gem's own documentation.
+    </p>
+  </header>
+  <div class="qs-grid">
+    {entries.map((entry) => (
+      <article class:list={['qs-card', `token-${entry.token}`]}>
+        <header class="qs-card-head">
+          <h3>{entry.name}</h3>
+          <span class="qs-role">{entry.role}</span>
+        </header>
+        <p class="qs-blurb">{entry.blurb}</p>
+        <pre class="qs-install"><code>{entry.install}</code></pre>
+        <pre class="qs-snippet"><code>{entry.snippet}</code></pre>
+        <footer class="qs-links">
+          <a href={entry.github} target="_blank" rel="noopener">GitHub</a>
+          <a href={entry.rubygems} target="_blank" rel="noopener">RubyGems</a>
+        </footer>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .quickstart {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4.5rem 1.5rem 2rem;
+  }
+  .qs-head {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.78rem;
+    color: var(--color-ink-muted);
+    margin: 0 0 0.5rem;
+  }
+  .qs-head h2 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    letter-spacing: -0.015em;
+  }
+  .qs-lede {
+    color: var(--color-ink-muted);
+    margin: 0;
+    font-size: 1.02rem;
+  }
+  .qs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+  .qs-card {
+    background: var(--color-canvas);
+    border: 1px solid var(--color-line);
+    border-radius: 14px;
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    transition: border-color 0.18s ease;
+  }
+  .qs-card:hover { border-color: var(--color-ink-muted); }
+  .qs-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+  .qs-card h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .qs-role {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+  }
+  .token-amber .qs-role { color: var(--color-spectrum-amber); }
+  .token-coral .qs-role { color: var(--color-spectrum-coral); }
+  .qs-blurb {
+    margin: 0;
+    color: var(--color-ink-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    flex: 1;
+  }
+  .qs-install,
+  .qs-snippet {
+    margin: 0;
+    background: var(--color-canvas-soft);
+    border: 1px solid var(--color-line);
+    border-radius: 8px;
+    padding: 0.6rem 0.8rem;
+    overflow-x: auto;
+  }
+  .qs-install code,
+  .qs-snippet code {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--color-ink);
+    white-space: pre;
+  }
+  .qs-install { border-style: dashed; }
+  .qs-links {
+    display: flex;
+    gap: 0.9rem;
+  }
+  .qs-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    text-underline-offset: 3px;
+  }
+  .qs-links a:hover { text-decoration: underline; }
+</style>
