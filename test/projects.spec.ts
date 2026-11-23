@@ -16,7 +16,7 @@ const VALID_CATEGORIES = [
   'meta',
 ] as const;
 
-const VALID_LANGUAGES = ['ruby', 'c', 'shell', 'html'] as const;
+const VALID_LANGUAGES = ['ruby', 'c', 'shell', 'html', 'grammar'] as const;
 
 type Frontmatter = {
   name: string;
