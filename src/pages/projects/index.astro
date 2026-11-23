@@ -3,30 +3,22 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../components/BaseLayout.astro';
 import ProjectsGrid from '../../components/ProjectsGrid.astro';
 import SpectrumStrip from '../../components/SpectrumStrip.astro';
-import { CATEGORY_META, type SpectrumCategory } from '../../content.config';
 
 const projects = await getCollection('projects');
-const categories = Object.keys(CATEGORY_META) as SpectrumCategory[];
-
-const counts = categories.reduce(
-  (acc, c) => {
-    acc[c] = projects.filter((p) => p.data.category === c).length;
-    return acc;
-  },
-  {} as Record<SpectrumCategory, number>
-);
 ---
 
 <BaseLayout
   title="Projects — Claricle"
-  description="The Claricle ecosystem: pure-Ruby libraries for image validation, conversion, page description, parsing, and layout."
+  description="The Claricle ecosystem, grouped by role: models, lenses, projections, and engines for image formats."
 >
   <header class="page-hero">
     <div class="page-hero-inner">
       <p class="eyebrow">The ecosystem</p>
-      <h1>A family of libraries, one image suite</h1>
+      <h1>Models, lenses, and projections for image formats</h1>
       <p class="lede">
-        Pick a category to filter. Every project is open source under the <a href="https://github.com/claricle" target="_blank" rel="noopener">claricle</a> org on GitHub.
+        Grouped by the role each library plays. Every project is open source
+        under the <a href="https://github.com/claricle" target="_blank" rel="noopener">claricle</a> org on GitHub; gems link to
+        their pages on RubyGems.
       </p>
       <div class="spectrum-row">
         <SpectrumStrip />
@@ -35,16 +27,7 @@ const counts = categories.reduce(
   </header>
 
   <section class="container">
-    <ProjectsGrid projects={projects} filterable={true} />
-
-    <aside class="category-counts" aria-label="Projects per category">
-      {categories.map((c) => (
-        <span class="count-chip">
-          <span class:list={['dot', `dot-${CATEGORY_META[c].token}`]}></span>
-          {CATEGORY_META[c].label}: {counts[c]}
-        </span>
-      ))}
-    </aside>
+    <ProjectsGrid projects={projects} filterable={true} grouped={true} />
   </section>
 </BaseLayout>
 
@@ -88,31 +71,4 @@ const counts = categories.reduce(
     margin: 0 auto;
     padding: 2rem 1.5rem 4rem;
   }
-  .category-counts {
-    margin-top: 2rem;
-    padding: 1.25rem 1.5rem;
-    background: var(--color-canvas-soft);
-    border-radius: 12px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem 1.25rem;
-    font-size: 0.88rem;
-    color: var(--color-ink-muted);
-  }
-  .count-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-  }
-  .dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-  }
-  .dot-coral { background: var(--color-spectrum-coral); }
-  .dot-amber { background: var(--color-spectrum-amber); }
-  .dot-forest { background: var(--color-spectrum-forest); }
-  .dot-sky { background: var(--color-spectrum-sky); }
-  .dot-plum { background: var(--color-spectrum-plum); }
 </style>

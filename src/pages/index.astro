@@ -2,7 +2,9 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../components/BaseLayout.astro';
 import RainbowHero from '../components/RainbowHero.astro';
+import FormatFlow from '../components/FormatFlow.astro';
 import FeatureGrid from '../components/FeatureGrid.astro';
+import Quickstart from '../components/Quickstart.astro';
 import ProjectsGrid from '../components/ProjectsGrid.astro';
 
 const all = await getCollection('projects');
@@ -13,22 +15,31 @@ const featured = all.filter((p) => p.data.featured);
   <RainbowHero />
 
   <section class="container">
+    <FormatFlow />
+  </section>
+
+  <section class="container">
     <FeatureGrid />
   </section>
 
   <section class="container">
     <header class="section-head">
       <p class="eyebrow">The ecosystem</p>
-      <h2>Batteries-included image tooling</h2>
+      <h2>One role per library</h2>
       <p class="lede">
-        Each library does one thing well. Together they cover the publication
-        image pipeline end to end.
+        Featured projects from the suite. The full grid — grouped into models,
+        lenses, projections, and engines — lives under
+        <a href="/projects/">projects</a>.
       </p>
     </header>
     <ProjectsGrid projects={featured} />
     <p class="more-link">
       <a href="/projects/">See all projects &rarr;</a>
     </p>
+  </section>
+
+  <section class="container">
+    <Quickstart />
   </section>
 
   <section class="container cta-band">

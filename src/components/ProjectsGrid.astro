@@ -2,12 +2,14 @@
 import type { CollectionEntry } from 'astro:content';
 import ProjectCard from './ProjectCard.astro';
 import ProjectFilter from './ProjectFilter.vue';
+import { ROLE_META, ROLE_ORDER, type ProjectRole } from '../content.config';
 
 interface Props {
   projects: CollectionEntry<'projects'>[];
   filterable?: boolean;
+  grouped?: boolean;
 }
-const { projects, filterable = false } = Astro.props;
+const { projects, filterable = false, grouped = false } = Astro.props;
 
 const sorted = [...projects].sort((a, b) => a.data.order - b.data.order);
 const categories = [...new Set(sorted.map((p) => p.data.category))];
@@ -18,33 +20,74 @@ const items = sorted.map((p) => ({
   tagline: p.data.tagline,
   description: p.data.description,
   category: p.data.category,
+  role: p.data.role,
   github: p.data.github,
+  rubygems: p.data.rubygems,
   docs: p.data.docs,
   featured: p.data.featured,
   language: p.data.language,
   order: p.data.order,
 }));
+
+/**
+ * Roles that actually have projects, in ROLE_ORDER sequence, with their
+ * presentation metadata. Consumed by the filter island and the noscript
+ * fallback so both render the same grouping.
+ */
+const presentRoles = (ROLE_ORDER as ProjectRole[])
+  .filter((role) => sorted.some((p) => p.data.role === role))
+  .map((role) => ({ role, ...ROLE_META[role] }));
+
+const byRole = (role: ProjectRole) =>
+  sorted.filter((p) => p.data.role === role);
 ---
 
-{filterable ? (
-  <div
-    class="projects-grid-filterable"
-    data-projects={JSON.stringify(items)}
-    data-categories={JSON.stringify(categories)}
-  >
-    <ProjectFilter client:load categories={categories} />
-    <div class="projects-grid" data-projects-grid></div>
-    <noscript>
-      <div class="projects-grid">
-        {sorted.map((p) => <ProjectCard project={p.data} />)}
-      </div>
-    </noscript>
-  </div>
-) : (
-  <div class="projects-grid">
-    {sorted.map((p) => <ProjectCard project={p.data} />)}
-  </div>
-)}
+{
+  filterable ? (
+    <div
+      class="projects-grid-filterable"
+      data-projects={JSON.stringify(items)}
+      data-roles={JSON.stringify(presentRoles)}
+    >
+      <ProjectFilter client:load categories={categories} roles={presentRoles} />
+      <noscript>
+        {presentRoles.map(({ role, label, description }) => (
+          <section class="role-section" aria-labelledby={`role-${role}`}>
+            <header class="role-head">
+              <h2 id={`role-${role}`}>{label}</h2>
+              <p>{description}</p>
+            </header>
+            <div class="projects-grid">
+              {byRole(role).map((p) => (
+                <ProjectCard project={p.data} />
+              ))}
+            </div>
+          </section>
+        ))}
+      </noscript>
+    </div>
+  ) : grouped ? (
+    presentRoles.map(({ role, label, description }) => (
+      <section class="role-section" aria-labelledby={`role-${role}`}>
+        <header class="role-head">
+          <h2 id={`role-${role}`}>{label}</h2>
+          <p>{description}</p>
+        </header>
+        <div class="projects-grid">
+          {byRole(role).map((p) => (
+            <ProjectCard project={p.data} />
+          ))}
+        </div>
+      </section>
+    ))
+  ) : (
+    <div class="projects-grid">
+      {sorted.map((p) => (
+        <ProjectCard project={p.data} />
+      ))}
+    </div>
+  )
+}
 
 <style>
   .projects-grid {
@@ -52,5 +95,23 @@ const items = sorted.map((p) => ({
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.25rem;
     margin: 2rem 0;
+  }
+  .role-section {
+    margin: 1rem 0 2.5rem;
+  }
+  .role-head {
+    margin: 0 0 0.5rem;
+  }
+  .role-head h2 {
+    margin: 0 0 0.3rem;
+    font-size: 1.4rem;
+    letter-spacing: -0.01em;
+  }
+  .role-head p {
+    margin: 0;
+    color: var(--color-ink-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    max-width: 640px;
   }
 </style>

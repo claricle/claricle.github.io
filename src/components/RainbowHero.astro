@@ -20,9 +20,13 @@ const { class: className = '' } = Astro.props;
       Colors give us <span class="rainbow-text">clarity</span>
     </h1>
     <p class="hero-lede">
-      Claricle is a family of pure-Ruby libraries for image validation,
-      conversion, compression, and vector graphics &mdash; the publication
-      pipeline's essential image suite.
+      Claricle builds <strong>models, lenses, and projections</strong> for
+      image formats &mdash; every supported format fully translatable and
+      transformable, vector formats manipulable at the DOM level.
+    </p>
+    <p class="hero-hub">
+      SVG is the interchange hub. EMF and WMF are the ingestion spoke,
+      PostScript the print projection, PNG the raster projection.
     </p>
     <div class="hero-actions">
       <a class="cta-primary" href="/projects/">Explore the ecosystem</a>
@@ -91,8 +95,16 @@ const { class: className = '' } = Astro.props;
   .hero-lede {
     font-size: 1.15rem;
     line-height: 1.55;
-    color: var(--color-ink-muted);
+    color: var(--color-ink);
     max-width: 620px;
+    margin: 0 auto 0.75rem;
+  }
+  .hero-lede strong { font-weight: 650; }
+  .hero-hub {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--color-ink-muted);
+    max-width: 540px;
     margin: 0 auto 2rem;
   }
   .hero-actions {
