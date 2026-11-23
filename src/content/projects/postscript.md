@@ -8,7 +8,9 @@ description: >-
   back to source. The lower layer of postsvg; independently reusable for any
   tool that needs to read, write, or transform PostScript.
 category: page-description
+role: model
 github: https://github.com/claricle/postscript
+rubygems: https://rubygems.org/gems/postscript
 docs: https://github.com/claricle/postscript#readme
 featured: false
 language: ruby

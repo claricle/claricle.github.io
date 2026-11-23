@@ -8,7 +8,9 @@ description: >-
   (Enhanced Metafile Plus). Reads binary input into an OOP domain model and
   serializes the model back to binary. The parsing half of emfsvg.
 category: parsers
+role: model
 github: https://github.com/claricle/emf
+rubygems: https://rubygems.org/gems/emf
 docs: https://github.com/claricle/emf#readme
 featured: false
 language: ruby

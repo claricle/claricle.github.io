@@ -7,15 +7,18 @@ description: >-
   boxes-and-arrows diagrams (UML, flowcharts, schema diagrams) without a JVM
   dependency.
 category: layout
+role: engine
 github: https://github.com/claricle/elkrb
+rubygems: https://rubygems.org/gems/elkrb
 docs: https://github.com/claricle/elkrb#readme
 featured: true
 language: ruby
-order: 6
+order: 8
 ---
 
 ELK is the de facto reference for layered graph layout, but it ships as a
 Java library. ELK.rb brings the algorithm to Ruby so the Claricle ecosystem
 can lay out diagrams natively — no JRuby, no shell-out to a JVM.
 
-Used by [`sirena`](/projects/#sirena) for the geometry of rendered diagrams.
+Used by the ecosystem's diagram rendering for layout geometry — any pipeline
+that needs deterministic boxes-and-arrows placement can call it directly.

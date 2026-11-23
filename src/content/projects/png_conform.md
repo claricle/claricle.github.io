@@ -7,11 +7,13 @@ description: >-
   structure, IHDR constraints, ancillary chunk semantics. Catches the silent
   corruption that breaks downstream raster pipelines.
 category: conformance
+role: lens
 github: https://github.com/claricle/png_conform
+rubygems: https://rubygems.org/gems/png_conform
 docs: https://github.com/claricle/png_conform
 featured: true
 language: ruby
-order: 5
+order: 7
 ---
 
 A PNG that decodes is not necessarily a PNG that conforms. PNG Conform is the

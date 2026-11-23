@@ -7,7 +7,9 @@ description: >-
   the C library's speed but a Ruby API. Pre-dates the pure-Ruby
   [`emfsvg`](/projects/#emfsvg) port.
 category: parsers
+role: projection
 github: https://github.com/claricle/emf2svg-ruby
+rubygems: https://rubygems.org/gems/emf2svg
 docs: https://github.com/claricle/emf2svg-ruby#readme
 featured: false
 language: ruby

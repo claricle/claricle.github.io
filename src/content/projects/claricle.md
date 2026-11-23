@@ -8,7 +8,9 @@ description: >-
   a shim reserving the gem name; full functionality lands as the underlying
   libraries mature.
 category: meta
+role: suite
 github: https://github.com/claricle/claricle
+rubygems: https://rubygems.org/gems/claricle
 docs: https://github.com/claricle/claricle#readme
 featured: true
 language: ruby

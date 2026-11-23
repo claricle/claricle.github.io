@@ -8,7 +8,9 @@ description: >-
   ecosystem so a publication pipeline can move a single diagram across every
   format it touches.
 category: conversion
+role: projection
 github: https://github.com/claricle/vectory
+rubygems: https://rubygems.org/gems/vectory
 docs: https://github.com/claricle/vectory#readme
 featured: true
 language: ruby
