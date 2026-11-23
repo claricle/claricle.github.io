@@ -9,7 +9,9 @@ description: >-
   32000-2:2020), so field metadata, version predicates, and validators stay
   aligned with the spec by data, not by hand-coded mimicry.
 category: page-description
+role: model
 github: https://github.com/claricle/pdfrb
+rubygems: https://rubygems.org/gems/pdfrb
 docs: https://github.com/claricle/pdfrb#readme
 featured: false
 language: ruby

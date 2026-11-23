@@ -7,9 +7,11 @@ description: >-
   round-trips back. The foundation of vector conversion for any publication
   pipeline that receives diagrams from Windows applications.
 category: conversion
+role: projection
 github: https://github.com/claricle/emfsvg
+rubygems: https://rubygems.org/gems/emfsvg
 docs: https://github.com/claricle/emfsvg#readme
-featured: false
+featured: true
 language: ruby
 order: 3
 ---

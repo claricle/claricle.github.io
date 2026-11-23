@@ -7,11 +7,13 @@ description: >-
   deviations produced by drawing tools. Use it as a gate in any pipeline that
   ingests third-party SVG.
 category: conformance
+role: lens
 github: https://github.com/claricle/svg_conform
+rubygems: https://rubygems.org/gems/svg_conform
 docs: https://github.com/claricle/svg_conform
 featured: true
 language: ruby
-order: 4
+order: 6
 ---
 
 Ingest pipelines that accept SVG from authors, designers, or upstream tools

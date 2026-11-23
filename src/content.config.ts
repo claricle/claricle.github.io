@@ -13,6 +13,64 @@ export const SpectrumCategorySchema = z.enum([
 
 export type SpectrumCategory = z.infer<typeof SpectrumCategorySchema>;
 
+/**
+ * The role a project plays in the format pipeline. Roles map onto the
+ * Claricle thesis: models make formats programmable, lenses validate them,
+ * projections transform them, engines carry the shared machinery.
+ */
+export const ProjectRoleSchema = z.enum([
+  'model',
+  'lens',
+  'projection',
+  'engine',
+  'suite',
+]);
+
+export type ProjectRole = z.infer<typeof ProjectRoleSchema>;
+
+export const ROLE_META: Record<
+  ProjectRole,
+  { label: string; token: string; description: string }
+> = {
+  model: {
+    label: 'Models',
+    token: 'sky',
+    description:
+      'Typed domain models that make a format programmable — parse it, walk it, serialize it back.',
+  },
+  lens: {
+    label: 'Lenses',
+    token: 'coral',
+    description:
+      'Conformance and validation views over a format — check files against the standards they claim.',
+  },
+  projection: {
+    label: 'Projections',
+    token: 'amber',
+    description:
+      'Transform one representation into another — every supported format fully translatable.',
+  },
+  engine: {
+    label: 'Engines',
+    token: 'forest',
+    description:
+      'Shared machinery underneath the suite — layout, codecs, and native cores.',
+  },
+  suite: {
+    label: 'Suite',
+    token: 'plum',
+    description: 'The umbrella gem and suite-level resources.',
+  },
+};
+
+export const ROLE_ORDER: ProjectRole[] = [
+  'model',
+  'lens',
+  'projection',
+  'engine',
+  'suite',
+];
+
 export const CATEGORY_META: Record<
   SpectrumCategory,
   { label: string; token: string; description: string }
@@ -57,14 +115,21 @@ const projects = defineCollection({
     tagline: z.string(),
     description: z.string(),
     category: SpectrumCategorySchema,
+    role: ProjectRoleSchema,
     github: z
       .string()
       .url()
       .regex(/^https:\/\/github\.com\/claricle\//,
         'github URL must point at the claricle org'),
+    rubygems: z
+      .string()
+      .url()
+      .regex(/^https:\/\/rubygems\.org\/gems\//,
+        'rubygems URL must point at rubygems.org/gems/')
+      .optional(),
     docs: z.string().url().optional(),
     featured: z.boolean().default(false),
-    language: z.enum(['ruby', 'c', 'shell', 'html']).default('ruby'),
+    language: z.enum(['ruby', 'c', 'shell', 'html', 'grammar']).default('ruby'),
     order: z.number().default(100),
   }),
 });

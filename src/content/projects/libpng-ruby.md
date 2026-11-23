@@ -6,7 +6,9 @@ description: >-
   FFI bindings to libpng — the canonical PNG reference implementation —
   exposing chunk-level read and write operations to Ruby.
 category: parsers
+role: engine
 github: https://github.com/claricle/libpng-ruby
+rubygems: https://rubygems.org/gems/libpng
 docs: https://github.com/claricle/libpng-ruby#readme
 featured: false
 language: ruby

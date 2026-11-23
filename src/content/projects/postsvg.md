@@ -8,11 +8,13 @@ description: >-
   comment-aware lexer and stack-machine interpreter for the PS source side.
   No Ghostscript, no Inkscape — the entire pipeline runs in Ruby.
 category: conversion
+role: projection
 github: https://github.com/claricle/postsvg
+rubygems: https://rubygems.org/gems/postsvg
 docs: https://github.com/claricle/postsvg#readme
-featured: false
+featured: true
 language: ruby
-order: 115
+order: 4
 ---
 
 ## Install
